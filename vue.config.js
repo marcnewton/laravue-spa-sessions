@@ -1,4 +1,19 @@
 module.exports = {
+
+    devServer: {
+        proxy: {
+            '^/app': {
+                target: 'http://192.168.10.10',
+                ws: true,
+                changeOrigin: true,
+                secure: false
+            },
+            '^/socket.io': {
+                target: 'http://192.168.10.10'
+            }
+        }
+    },
+
     filenameHashing: true,
     baseUrl: undefined,
     runtimeCompiler: true,
@@ -7,5 +22,5 @@ module.exports = {
     css: undefined,
     outputDir: 'public',
     assetsDir: undefined,
-    indexPath: process.env.NODE_ENV ? '../resources/views/layouts/app.blade.php' : 'index.html'
+    indexPath: process.env.NODE_ENV ? '../resources/views/app.blade.php' : 'index.html'
 }
