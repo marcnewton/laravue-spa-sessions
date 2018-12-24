@@ -1,5 +1,6 @@
 # IDE
 .idea
+.vagrant
 
 # Packages
 vendor/
