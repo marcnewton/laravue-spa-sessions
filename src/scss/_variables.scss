@@ -1,0 +1,60 @@
+$body-color: rgb(228, 231, 234);
+$font-color: rgb(47,47,47);
+
+$accent-font-color: rgb(252,252,252);
+
+$header-color: rgb(255,255,255);
+$nav-color: rgb(64, 76, 80);
+$primary-color: rgb(65,184,131);
+
+$info: rgb(68,138,255);
+$success: rgb(66,184,131);
+$warning: rgb(251, 163, 36);
+$danger: rgb(255,82,82);
+$error: rgb(255,82,82);
+$disabled: rgb(231, 231, 231);
+
+// Default Theme
+:root {
+
+    --body-color: #{$body-color};
+    --font-color: #{$font-color};
+
+    --accent-font-color: #{$accent-font-color};
+
+    --header: #{$header-color};
+    --nav: #{$nav-color};
+
+    --primary: #{$primary-color};
+    --font-color-primary: #{$accent-font-color};
+
+    --accent: rgb(255,82,82);
+    --font-color-accent: #{$accent-font-color};
+
+    --info: #{$info};
+    --success: #{$success};
+    --warning: #{$warning};
+    --danger: #{$danger};
+    --error: #{$error};
+    --disabled: #{$disabled};
+
+    --alt-primary: #{transparentize($primary-color,0.9)};
+
+    --alt-info: #{transparentize($info,0.9)};
+    --alt-success: #{transparentize($success,0.9)};
+    --alt-warning: #{transparentize($warning,0.9)};
+    --alt-danger: #{transparentize($danger,0.9)};
+    --alt-error: #{transparentize($error,0.9)};
+    --alt-disabled: #{darken($disabled,10%)};
+
+    --grey-100:rgb(240, 243, 245);
+    --grey-200:rgb(228, 231, 234);
+    --grey-300:rgb(200, 206, 211);
+    --grey-400:rgb(172, 180, 188);
+    --grey-500:rgb(143, 155, 166);
+    --grey-600:rgb(115, 129, 143);
+    --grey-700:rgb(92, 104, 115);
+    --grey-800:rgb(47, 53, 58);
+    --grey-900:rgb(35, 40, 44);
+
+}
