@@ -31,7 +31,7 @@ Vue.use(laravel);
 /**
  * Initialize the main application
  */
-
+import './layouts';
 import App from './App';
 
 window.App = new Vue({
@@ -64,12 +64,6 @@ window.App = new Vue({
         isLoading () {
 
             return this.loading > 0;
-
-        },
-
-        layout () {
-
-            return this.$route.meta.layout || 'layout-default';
 
         }
 

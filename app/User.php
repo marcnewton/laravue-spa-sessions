@@ -34,20 +34,17 @@ class User extends Authenticatable
      */
     public static final function Routes ()
     {
-        $routes = \Illuminate\Support\Facades\Cache::rememberForever('routes.js', function () {
+        $routes = \Illuminate\Support\Facades\Cache::rememberForever('app.routes', function () {
 
             $routes = [];
 
             foreach(Route::getRoutes()->getIterator() AS $route)
             {
-                if(!array_key_exists('namespace',$route->action))
-                    continue;
-
-                if(!is_array($route->action['middleware']))
-                    continue;
-
-                if(in_array($route->action['namespace'],['App\Http\Controllers\API'],true))
-                    continue;
+//                if(!array_key_exists('namespace',$route->action))
+//                    continue;
+//
+//                if(!is_array($route->action['middleware']))
+//                    continue;
 
                 $name = $route->getName();
 
@@ -69,7 +66,7 @@ class User extends Authenticatable
     {
         $lang = config('app.locale');
 
-        $strings = \Illuminate\Support\Facades\Cache::rememberForever('languages.' . $lang, function () use ($lang) {
+        $strings = \Illuminate\Support\Facades\Cache::rememberForever('app.languages' . $lang, function () use ($lang) {
 
             $files = glob(resource_path('lang/' . $lang . '/*.php'));
             $strings = [];

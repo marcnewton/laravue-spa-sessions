@@ -8,10 +8,9 @@ export default {
         Vue.prototype.$Laravel = new Vue({
 
             data: () => ({
-                csrfToken: '',
-                version: 0,
-                routes: [],
-                translations: {}
+
+                csrfToken: ''
+
             }),
 
             methods: {
@@ -23,14 +22,15 @@ export default {
                     router.app.$http.get('/app').then(response => {
 
                         if(response.data.hasOwnProperty('routes'))
-                            router.app.$set(router.app.$Laravel, 'routes', response.data.routes);
+                            router.app.$store.commit('Laravel/routes', response.data.routes);
 
                         if(response.data.hasOwnProperty('translations'))
-                            router.app.$set(router.app.$Laravel, 'translations', response.data.translations);
+                            router.app.$store.commit('Laravel/translations', response.data.translations);
 
                         if(response.data.hasOwnProperty('version'))
-                            router.app.$set(router.app.$Laravel, 'version', response.data.version);
+                            router.app.$store.commit('Laravel/version', response.data.version);
 
+                        // TODO check routes are set else set init failed state.
                         router.app.$store.commit('setInitializing',false);
 
                         this.checkAuth();
@@ -41,9 +41,7 @@ export default {
                         console.error(error, 'data', error.data, 'code',error.code);
 
                         // TODO pickup if timeout
-                        router.app.$store.commit('setInitializing','retry');
-
-                        setTimeout(this.initialize,2500);
+                        router.app.$store.commit('setInitializing','offline');
 
                     });
 
@@ -53,7 +51,7 @@ export default {
 
                     router.app.$set(router.app,'isAuthenticating',true);
 
-                    router.app.$http.get(route('get.user')).then(response => {
+                    router.app.$http.get(route('api.user')).then(response => {
 
                         router.app.$store.commit('setUser', response.data);
 
@@ -85,7 +83,7 @@ export default {
 
                     router.app.$set(router.app, 'isAuthenticating', true);
 
-                    return router.app.$http.post(route('login.send'), input).then(response => {
+                    return router.app.$http.post(route('login'), input).then(response => {
 
                         const redirect = router.currentRoute.query.hasOwnProperty('redirect') && router.currentRoute.query.redirect
                             ? router.currentRoute.query.redirect : router.currentRoute.path;
@@ -106,7 +104,7 @@ export default {
 
                     router.app.$set(router.app, 'isAuthenticating', true);
 
-                    return router.app.$http.post(route('login.send'), input).then(response => {
+                    return router.app.$http.post(route('login'), input).then(response => {
 
                         router.app.$store.commit('setUser', response.data.user);
 
@@ -153,7 +151,7 @@ export default {
 
                 recover: function (input) {
 
-                    router.app.$http.post('/password/recover', input).then(response => {
+                    router.app.$http.post(route('password.update'), input).then(response => {
 
                         router.app.$store.commit('setUser', response.data.user);
 
@@ -171,7 +169,7 @@ export default {
                         return;
                     }
 
-                    router.app.$http.get(route('get.user')).then(response => {
+                    router.app.$http.get(route('api.user')).then(response => {
 
                         router.app.$store.commit('setUser', response.data);
 
@@ -186,18 +184,18 @@ export default {
                     const args = Array.prototype.slice.call(arguments);
                     const name = args.shift();
 
-                    if (this.routes[name] === undefined) {
+                    if (router.app.$store.state.Laravel.routes.hasOwnProperty(name) === false) {
                         console.error('Unknown route ', name);
                         return undefined;
                     } else {
-                        return '/' + this.routes[name].split('/').map(s => s[0] === '{' ? args.shift() : s).join('/');
+                        return '/' + router.app.$store.state.Laravel.routes[name].split('/').map(s => s[0] === '{' ? args.shift() : s).join('/');
                     }
 
                 },
 
                 translate: function (string, args) {
 
-                    let value = _.get(this.translations, string);
+                    let value = _.get(router.app.$store.state.Laravel.translations, string);
 
                     _.eachRight(args, (paramVal, paramKey) => {
                         value = _.replace(value, `:${paramKey}`, paramVal);

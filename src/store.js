@@ -2,6 +2,43 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex);
 
+const Laravel = {
+
+    namespaced: true,
+
+    state: {
+
+        version: 0,
+        routes: [],
+        translations: {}
+
+    },
+
+    mutations: {
+
+        routes (state,payload) {
+
+            state.routes = payload;
+
+        },
+
+        translations (state,payload) {
+
+            state.translations = payload;
+
+        },
+
+        version (state,payload) {
+
+            state.version = payload;
+
+        }
+
+    }
+
+};
+
+
 const store = new Vuex.Store({
 
     state: {
@@ -38,6 +75,12 @@ const store = new Vuex.Store({
             state.inMaintenance = payload;
 
         }
+
+    },
+
+    modules: {
+
+        Laravel: Laravel
 
     }
 

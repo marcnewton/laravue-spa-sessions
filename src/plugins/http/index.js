@@ -98,7 +98,7 @@ const Http = {
                     switch(error.response.status) {
 
                         case 401: // Unauthorized
-                            router.app.$Laravel.logout(false);
+                            router.app.$Laravel.logout(true);
                             break;
 
                         case 419: // Authentication Timeout

@@ -23,7 +23,7 @@ class ApplicationController extends Controller
                 'language' => User::Language(),
             ]);
 
-        return view('layouts.app');
+        return view('app');
     }
 
 }

@@ -1,25 +1,7 @@
 <template>
 
     <transition name="fade">
-
-        <div v-if="$root.isInitializing === true">
-            Initializing Application...
-        </div>
-
-        <div v-else-if="$root.isInitializing === 'retry'">
-            Application not responding... Retrying...
-        </div>
-
-        <div v-else-if="$root.isAuthenticating">
-            Authenticating...
-        </div>
-
-        <component :is="layout" v-else>
-            <transition name="fade">
-                <router-view/>
-            </transition>
-        </component>
-
+        <component :is="layout"/>
     </transition>
 
 </template>
@@ -29,10 +11,15 @@
     export default {
 
         name: 'App',
-
         computed: {
 
             layout() {
+
+                if(this.$root.isInitializing)
+                    return 'layout-initializing';
+
+                if(this.$root.isAuthenticating)
+                    return 'layout-authenticating';
 
                 let layout = this.$route.meta.layout || 'default';
 
