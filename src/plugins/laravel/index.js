@@ -61,7 +61,7 @@ export default {
                                 ? router.currentRoute.query.redirect : router.currentRoute.path;
 
                             router.push(redirect, () => {
-                                router.app.$set(router.app, 'isAuthenticating', false);
+                                router.app.$store.commit('setAuthenticating',false);
                             });
 
                         }
@@ -81,7 +81,7 @@ export default {
 
                 login: function (input) {
 
-                    router.app.$set(router.app, 'isAuthenticating', true);
+                    router.app.$store.commit('setAuthenticating',true);
 
                     return router.app.$http.post(route('login'), input).then(response => {
 
@@ -94,7 +94,7 @@ export default {
 
                     }).finally(() => {
 
-                        router.app.$set(router.app, 'isAuthenticating', false);
+                        router.app.$store.commit('setAuthenticating',false);
 
                     });
 
@@ -102,7 +102,7 @@ export default {
 
                 verify: function (input) {
 
-                    router.app.$set(router.app, 'isAuthenticating', true);
+                    router.app.$store.commit('setAuthenticating',true);
 
                     return router.app.$http.post(route('login'), input).then(response => {
 
@@ -110,7 +110,7 @@ export default {
 
                     }).finally(() => {
 
-                        router.app.$set(router.app, 'isAuthenticating', false);
+                        router.app.$store.commit('setAuthenticating',false);
 
                     });
 
