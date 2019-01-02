@@ -1,6 +1,8 @@
 <template>
 
-    <form>
+    <form @submit.prevent="logMeIn">
+
+        <div class="logo"></div>
 
         <label for="input-auth-email">{{ $trans('auth.email') }}</label>
         <input v-model="input.email" type="email" id="input-auth-email" />
@@ -11,7 +13,7 @@
         <label for="input-auth-remember">{{ $trans('auth.remember') }}</label>
         <input v-model="input.remember" type="checkbox" id="input-auth-remember"/>
 
-        <button @click="logMeIn">Login</button>
+        <button type="submit">Login</button>
 
         {{ errors }}
 

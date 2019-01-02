@@ -1,4 +1,4 @@
-import AuthLogin from '../components/auth/Login'
+import AuthLogin from '../../components/auth/Login'
 
 const routes = [
     {

@@ -59,7 +59,7 @@ window.App = new Vue({
 
     computed: {
 
-        ...mapState(['user','isAuthenticated','isInitializing']),
+        ...mapState(['user','isAuthenticating','isAuthenticated','isInitializing']),
 
         isLoading () {
 

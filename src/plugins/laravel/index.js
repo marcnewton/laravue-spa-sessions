@@ -49,7 +49,7 @@ export default {
 
                 checkAuth: function () {
 
-                    router.app.$set(router.app,'isAuthenticating',true);
+                    router.app.$store.commit('setAuthenticating',true);
 
                     router.app.$http.get(route('api.user')).then(response => {
 
@@ -73,7 +73,7 @@ export default {
 
                     }).finally(() => {
 
-                        router.app.$set(router.app, 'isAuthenticating', false);
+                        router.app.$store.commit('setAuthenticating',false);
 
                     });
 
@@ -88,9 +88,9 @@ export default {
                         const redirect = router.currentRoute.query.hasOwnProperty('redirect') && router.currentRoute.query.redirect
                             ? router.currentRoute.query.redirect : router.currentRoute.path;
 
-                        router.app.$store.commit('setUser', response.data.user);
+                        //router.app.$store.commit('setUser', response.data.user);
 
-                        router.push(redirect);
+                        //router.push(redirect);
 
                     }).finally(() => {
 

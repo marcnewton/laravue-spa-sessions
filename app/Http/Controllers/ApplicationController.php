@@ -20,7 +20,7 @@ class ApplicationController extends Controller
 
             return response()->json([
                 'routes' => User::Routes(),
-                'language' => User::Language(),
+                'translations' => User::Language(),
             ]);
 
         return view('app');

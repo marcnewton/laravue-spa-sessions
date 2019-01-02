@@ -10,4 +10,44 @@ html,body {
 
     position: relative;
 
+    color: var(--font-color);
+    background-color: var(--body-color);
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.layout-splash {
+
+    flex-direction: column;
+    background-color: var(--primary);
+    color: white;
+
+    .logo {
+
+
+        width: 60%;
+        max-width:24rem;
+        padding-bottom: 60%;
+        margin-bottom:2em;
+        border-radius: 50%;
+
+        background-color: white;
+        background-image: url('../assets/img/vue.svg');
+        background-repeat: no-repeat;
+        background-position: 50% 60%;
+        background-size: 50%;
+
+    }
+
+    > * {
+
+        display:inline-flex;
+        flex-direction: column;
+        align-items: center;
+
+        width:90%;
+        max-width:20rem;
+
+    }
+
 }

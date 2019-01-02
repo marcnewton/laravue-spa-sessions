@@ -1,8 +1,7 @@
 <template>
 
-    <div class="layout-container">
+    <div class="layout-splash layout-container">
 
-        <h1>Vue Default Layout</h1>
         <transition name="fade">
             <router-view/>
         </transition>

@@ -1,13 +1,19 @@
 <template>
 
-    <div class="layout-container">
+    <div class="layout-splash layout-container">
 
-        <div v-if="$root.isAuthenticating === true">
-            Authenticating... Please Wait...
-        </div>
+        <div>
 
-        <div v-if="$root.isAuthenticating === 'failed'">
-            Authentication Failed...
+            <div class="logo"></div>
+
+            <div v-if="$root.isAuthenticating === true">
+                Authenticating... Please Wait...
+            </div>
+
+            <div v-if="$root.isAuthenticating === 'failed'">
+                Authentication Failed...
+            </div>
+
         </div>
 
     </div>

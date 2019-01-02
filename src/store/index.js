@@ -2,41 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex);
 
-const Laravel = {
-
-    namespaced: true,
-
-    state: {
-
-        version: 0,
-        routes: [],
-        translations: {}
-
-    },
-
-    mutations: {
-
-        routes (state,payload) {
-
-            state.routes = payload;
-
-        },
-
-        translations (state,payload) {
-
-            state.translations = payload;
-
-        },
-
-        version (state,payload) {
-
-            state.version = payload;
-
-        }
-
-    }
-
-};
+import Laravel from './modules/laravel'
 
 
 const store = new Vuex.Store({
@@ -46,6 +12,8 @@ const store = new Vuex.Store({
         user: {
             id: null
         },
+
+        isAuthenticating: false,
 
         isAuthenticated: false,
 
@@ -64,6 +32,12 @@ const store = new Vuex.Store({
 
         },
 
+        setAuthenticating(state,payload) {
+
+            state.isAuthenticating = payload;
+
+        },
+
         setInitializing(state,payload) {
 
             state.isInitializing = payload;
@@ -79,9 +53,7 @@ const store = new Vuex.Store({
     },
 
     modules: {
-
-        Laravel: Laravel
-
+        Laravel
     }
 
 });

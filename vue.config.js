@@ -26,5 +26,5 @@ module.exports = {
     css: undefined,
     outputDir: 'public',
     assetsDir: undefined,
-    indexPath: process.env.NODE_ENV ? '../resources/views/app.blade.php' : 'index.html'
+    indexPath: process.env.NODE_ENV !== 'development' ? '../resources/views/app.blade.php' : 'index.html'
 }
