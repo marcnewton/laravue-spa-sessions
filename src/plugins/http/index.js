@@ -67,7 +67,7 @@ const Http = {
                     const token = response.headers['x-csrf-token'];
 
                     axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
-                    router.app.Laravel.csrfToken = token;
+                    router.app.$Laravel.csrfToken = token;
                 }
 
                 router.app.loading--;

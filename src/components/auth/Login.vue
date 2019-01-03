@@ -13,9 +13,11 @@
         <label for="input-auth-remember">{{ $trans('auth.remember') }}</label>
         <input v-model="input.remember" type="checkbox" id="input-auth-remember"/>
 
-        <button type="submit">Login</button>
+        <button type="submit" :disabled="$root.isAuthenticating">Login</button>
 
-        {{ errors }}
+
+        <div>{{ message }}</div>
+        <div>{{ errors }}</div>
 
     </form>
 
@@ -39,6 +41,7 @@
 
                 },
 
+                message: '',
                 errors: []
 
             }
@@ -49,9 +52,17 @@
 
             logMeIn() {
 
+                let vm = this;
+
                 this.$Laravel.login(this.input).catch(error => {
 
-                    this.errors = error.response.data.errors;
+                    console.log('login error comp',error.response.data);
+
+                    if(error.response.data.hasOwnProperty('message'))
+                        this.$set(this,'message',error.response.data.message);
+
+                    if(error.response.data.hasOwnProperty('errors'))
+                        this.$set(this,'errors',error.response.data.errors);
 
                 });
 
