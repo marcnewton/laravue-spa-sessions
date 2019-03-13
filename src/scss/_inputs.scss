@@ -1,3 +1,9 @@
+form {
+
+    position:relative;
+
+}
+
 input, button {
 
     border:none;
@@ -26,6 +32,21 @@ button {
 
         background-color: var(--grey-100);
 
+    }
+
+}
+
+.form-errors {
+
+    border-radius: 3px;
+    font-size:12px;
+    background-color: var(--accent);
+    padding:14px;
+    margin:14px;
+
+    ul {
+        margin-bottom: 0;
+        padding-left: 18px;
     }
 
 }

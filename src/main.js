@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
 
 /**
  * https://lodash.com/docs
@@ -21,7 +21,7 @@ Vue.config.productionTip = false;
  * Import plugins
  */
 
-import Http from './plugins/http';
+import Http from './plugins/http'
 Vue.use(Http);
 
 import laravel from './plugins/laravel'
@@ -31,8 +31,9 @@ Vue.use(laravel);
 /**
  * Initialize the main application
  */
-import './layouts';
-import App from './App';
+import './layouts'
+import './components'
+import App from './App'
 
 window.App = new Vue({
 
