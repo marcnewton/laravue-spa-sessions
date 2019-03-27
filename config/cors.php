@@ -12,12 +12,12 @@ return [
     |
     */
    
-    'supportsCredentials' => false,
+    'supportsCredentials' => true,
     'allowedOrigins' => ['*'],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
-    'exposedHeaders' => [],
+    'exposedHeaders' => ['X-CSRF-TOKEN'],
     'maxAge' => 0,
 
 ];

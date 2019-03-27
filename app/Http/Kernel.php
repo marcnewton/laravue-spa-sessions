@@ -2,20 +2,17 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\AfterMiddleware;
-use App\Http\Middleware\Authenticate;
-use App\Http\Middleware\CheckForMaintenanceMode;
-use App\Http\Middleware\EncryptCookies;
-use App\Http\Middleware\RedirectIfAuthenticated;
-use App\Http\Middleware\TrimStrings;
-use App\Http\Middleware\TrustProxies;
-use App\Http\Middleware\VerifyCsrfToken;
+use App\Http\Middleware\{AfterMiddleware,
+    EncryptCookies,
+    RedirectIfAuthenticated,
+    TrimStrings,
+    TrustProxies,
+    VerifyCsrfToken};
 use Barryvdh\Cors\HandleCors;
-use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
-use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
+use Illuminate\Auth\Middleware\{Authenticate, AuthenticateWithBasicAuth, Authorize};
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Http\Middleware\SetCacheHeaders;
@@ -36,13 +33,13 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        HandleCors::class,
         AfterMiddleware::class,
         CheckForMaintenanceMode::class,
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         TrustProxies::class,
-        HandleCors::class
     ];
 
     /**
@@ -55,7 +52,7 @@ class Kernel extends HttpKernel
             EncryptCookies::class,
             AddQueuedCookiesToResponse::class,
             StartSession::class,
-            // AuthenticateSession::class,
+            AuthenticateSession::class,
             ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
             SubstituteBindings::class,
