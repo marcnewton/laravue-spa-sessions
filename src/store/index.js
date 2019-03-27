@@ -27,6 +27,9 @@ const store = new Vuex.Store({
 
         setUser(state,payload) {
 
+            if(typeof payload !== 'object')
+                return;
+
             state.user = payload;
             state.isAuthenticated = !!payload.id;
 
