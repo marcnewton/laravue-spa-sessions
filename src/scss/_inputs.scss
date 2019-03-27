@@ -11,13 +11,13 @@ input, button {
     background-color: #fff;
 
     margin: 7px 0;
-    padding:14px;
+    padding: 8px 14px;
 
     font-size: 1rem;
 
 }
 
-input:-webkit-autofill {
+::-webkit-autofill {
 
     -webkit-text-fill-color: var(--primary);
     -webkit-box-shadow: 0 0 0 1000px white inset;
