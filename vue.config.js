@@ -1,30 +1,57 @@
+path = require('path');
+
+target = 'http://192.168.10.10';
+
 module.exports = {
 
     devServer: {
+        disableHostCheck: true,
         proxy: {
-            '/api/*': {
-                target: 'http://192.168.10.10',
+            '^/api': {
+                target: target,
                 changeOrigin: true,
-                secure: false
+                secure: false,
+                ws: true
             },
-            '/app/*': {
-                target: 'http://192.168.10.10',
+            '^/app': {
+                target: target,
                 changeOrigin: true,
-                secure: false
+                secure: false,
+                ws: true
             },
-            '/socket.io': {
-                target: 'http://192.168.10.10'
+            '^/socket.io': {
+                target: target
             }
         }
     },
 
-    filenameHashing: true,
     baseUrl: undefined,
+    outputDir: 'public',
+    assetsDir: undefined,
+    indexPath: process.env.NODE_ENV === 'production' ? '../resources/views/app.blade.php' : 'index.html',
     runtimeCompiler: true,
+    filenameHashing: true,
     productionSourceMap: undefined,
     parallel: undefined,
     css: undefined,
-    outputDir: 'public',
-    assetsDir: undefined,
-    indexPath: process.env.NODE_ENV !== 'development' ? '../resources/views/app.blade.php' : 'index.html'
+
+    chainWebpack: config => {
+
+        config.plugins.delete('copy');
+
+    },
+
+    configureWebpack: {
+        resolve: {
+            alias: {
+                '~' : path.resolve(__dirname,'src/')
+            }
+        }
+    },
+
+    pwa: {
+        name: 'Laravue SPA',
+        msTileColor: '#4DBA87'
+    }
+
 }
