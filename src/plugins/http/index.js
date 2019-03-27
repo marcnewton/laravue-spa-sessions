@@ -7,9 +7,8 @@ const Http = {
         baseURL: null
     }) {
 
-        if(this.installed) {
-            return
-        }
+        if(this.installed)
+            return;
 
         this.installed = true;
         this.params = options;
@@ -22,9 +21,11 @@ const Http = {
 
     register(Vue) {
 
-        if(this.params.baseURL) {
+        if(this.params.baseURL)
             axios.defaults.baseURL = this.params.baseURL;
-        }
+
+        if(this.params.hasOwnProperty('timeout'))
+            axios.defaults.timeout = this.params.timeout;
 
         axios.defaults.withCredentials = true;
 
@@ -47,11 +48,13 @@ const Http = {
             // Do something with request error
             function (error) {
 
+                if (error.code !== 'ECONNABORTED')
+                    router.app.serviceTimeouts = 0;
+
                 router.app.loading--;
 
-                if (router.app.loading < 0) {
+                if (router.app.loading < 0)
                     router.app.loading = 0;
-                }
 
                 return Promise.reject(error);
 
@@ -72,9 +75,8 @@ const Http = {
 
                 router.app.loading--;
 
-                if (router.app.loading < 0) {
+                if (router.app.loading < 0)
                     router.app.loading = 0;
-                }
 
                 return response;
 
@@ -86,10 +88,17 @@ const Http = {
 
                     router.app.loading--;
 
-                    if (router.app.loading < 0) {
+                    if (router.app.loading < 0)
                         router.app.loading = 0;
-                    }
 
+                if (error.code === 'ECONNABORTED') {
+                    router.app.serviceTimeouts++;
+
+                    if(router.app.serviceTimeouts <= 3)
+                        return axios.request(error.config);
+                }
+
+                if(typeof error !== 'object' || !error.response)
                     return Promise.reject(error);
                 }
 
@@ -111,9 +120,8 @@ const Http = {
 
                 router.app.loading--;
 
-                if (router.app.loading < 0) {
+                if (router.app.loading < 0)
                     router.app.loading = 0;
-                }
 
                 return Promise.reject(error);
 
