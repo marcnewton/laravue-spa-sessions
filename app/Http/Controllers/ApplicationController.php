@@ -20,10 +20,20 @@ class ApplicationController extends Controller
 
             return response()->json([
                 'routes' => User::Routes(),
-                'translations' => User::Language(),
+                'translations' => User::Language()
             ]);
 
         return view('app');
+    }
+
+    public final function User(Request $request)
+    {
+        $user = $request->user();
+
+        if($user === null)
+            abort(401);
+
+        return $user;
     }
 
 }
