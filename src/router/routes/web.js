@@ -1,4 +1,5 @@
-import AuthLogin from '../../components/auth/Login'
+const AuthLogin = () => import('~/components/auth/Login');
+const Home = () => import('~/components/pages/Home');
 
 const routes = [
     {
@@ -10,6 +11,14 @@ const routes = [
             layout: 'default'
         }
     },
+    {
+        name: 'home',
+        path: '/',
+        component: Home,
+        meta: {
+            layout: 'default'
+        }
+    }
 ];
 
 export default routes;

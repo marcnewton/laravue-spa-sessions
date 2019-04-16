@@ -155,7 +155,6 @@ export default {
                     const name = args.shift();
 
                     let route = this.routes.find(item => item.name === name);
-                    console.log('find route', name, this.routes, route);
 
                     if (!!!route) {
                         console.error('Unknown route ', name);

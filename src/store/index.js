@@ -50,6 +50,16 @@ const store = new Vuex.Store({
 
     },
 
+    getters: {
+
+        user: state => {
+
+            return state.user || { id: 0, name: null }
+
+        }
+
+    },
+
     modules: {
 
     }
