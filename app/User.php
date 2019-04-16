@@ -43,7 +43,7 @@ class User extends Authenticatable
      */
     public static final function Routes ()
     {
-        $routes = \Illuminate\Support\Facades\Cache::rememberForever('app.routes', function () {
+        //$routes = \Illuminate\Support\Facades\Cache::rememberForever('app.routes', function () {
 
             $routes = [];
 
@@ -60,12 +60,16 @@ class User extends Authenticatable
                 if(empty($name))
                     continue;
 
-                $routes[$name] = $route->uri;
+                array_push($routes,[
+                    'name' => $name,
+                    'uri' => $route->uri
+                ]);
+
             };
 
         	return $routes;
 
-        });
+        //});
 
         return $routes;
 

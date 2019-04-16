@@ -6,21 +6,21 @@
         "build": "rm -rf public/{js,css,img} && vue-cli-service build --no-clean"
     },
     "devDependencies": {
-        "@vue/cli-plugin-babel": "^3.2.0",
-        "@vue/cli-service": "^3.2.0",
+        "@vue/cli-plugin-babel": "^3.5.5",
+        "@vue/cli-service": "^3.5.3",
         "axios": "^0.18",
         "babel-core": "^6.26.3",
         "babel-jest": "^23.6.0",
         "file-loader": "^2.0.0",
         "lodash": "^4.17.11",
         "node-sass": "^4.11.0",
-        "popper.js": "^1.14.6",
+        "popper.js": "^1.15.0",
         "sass-loader": "^7.1.0",
-        "vue": "^2.5.21",
-        "vue-router": "^3.0.2",
+        "vue": "^2.6.10",
+        "vue-router": "^3.0.3",
         "vue-style-loader": "^4.1.2",
-        "vue-template-compiler": "^2.5.21",
-        "vuex": "^3.0.1",
-        "webpack": "^4.27.1"
+        "vue-template-compiler": "^2.6.10",
+        "vuex": "^2.5.0",
+        "webpack": "^4.29.6"
     }
 }

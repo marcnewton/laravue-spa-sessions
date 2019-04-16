@@ -2,16 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex);
 
-import Laravel from './modules/laravel'
-
-
 const store = new Vuex.Store({
 
     state: {
 
-        user: {
-            id: null
-        },
+        user: null,
 
         isAuthenticating: false,
 
@@ -27,11 +22,11 @@ const store = new Vuex.Store({
 
         setUser(state,payload) {
 
-            if(typeof payload !== 'object')
+            if(typeof payload !== 'object' || payload === null)
                 return;
 
             state.user = payload;
-            state.isAuthenticated = !!payload.id;
+            state.isAuthenticated = payload.hasOwnProperty('id');
 
         },
 
@@ -56,7 +51,7 @@ const store = new Vuex.Store({
     },
 
     modules: {
-        Laravel
+
     }
 
 });

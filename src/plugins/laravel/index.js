@@ -1,5 +1,6 @@
 import router from '../../router'
-import _ from 'lodash';
+
+import _ from "lodash";
 
 export default {
 
@@ -8,121 +9,40 @@ export default {
         Vue.prototype.$Laravel = new Vue({
 
             data: () => ({
-
-                csrfToken: ''
-
+                csrfToken: '',
+                version: 0,
+                routes: [],
+                translations: {}
             }),
 
             methods: {
 
-                initialize: function () {
+                login(input) {
 
-                    router.app.$store.commit('setInitializing',true);
+                    router.app.$store.commit('setAuthenticating', true);
 
-                    router.app.$http.get('/app').then(response => {
-
-                        if(response.data.hasOwnProperty('routes'))
-                            router.app.$store.commit('Laravel/routes', response.data.routes);
-
-                        if(response.data.hasOwnProperty('translations'))
-                            router.app.$store.commit('Laravel/translations', response.data.translations);
-
-                        if(response.data.hasOwnProperty('version'))
-                            router.app.$store.commit('Laravel/version', response.data.version);
-
-                        // TODO check routes are set else set init failed state.
-                        router.app.$store.commit('setInitializing',false);
-
-                        this.checkAuth();
-
-                    }).catch(error => {
-
-                        // TODO : Handle error
-                        console.error(error, 'data', error.data, 'code',error.code);
-
-                        // TODO pickup if timeout
-                        router.app.$store.commit('setInitializing','offline');
-
-                    });
-
-                },
-
-                checkAuth: function () {
-
-                    router.app.$store.commit('setAuthenticating',true);
-
-                    router.app.$http.get(route('api.user')).then(response => {
-
-                        router.app.$store.commit('setUser', response.data);
-
-                        if (router.app.isAuthenticated) {
-
-                            const redirect = router.currentRoute.query.hasOwnProperty('redirect') && !!router.currentRoute.query.redirect
-                                ? router.currentRoute.query.redirect : router.currentRoute.path;
-
-                            router.push(redirect, () => {
-                                router.app.$store.commit('setAuthenticating',false);
-                            });
-
-                        }
-
-                    }).catch(error => {
-
-                        // TODO Handle error response
-                        router.app.$store.commit('setUser',{ id: null });
-
-                    }).finally(() => {
-
-                        router.app.$store.commit('setAuthenticating',false);
-
-                    });
-
-                },
-
-                login: function (input) {
-
-                    router.app.$store.commit('setAuthenticating',true);
-
-                    return router.app.$http.post(route('login'), input).then(response => {
-
-                        const redirect = router.currentRoute.query.hasOwnProperty('redirect') && router.currentRoute.query.redirect
-                            ? router.currentRoute.query.redirect : router.currentRoute.path;
+                    let promise = router.app.$http.post(route('login'), input).then(response => {
 
                         router.app.$store.commit('setUser', response.data.user);
 
-                        router.push(redirect);
+                    });
 
-                    }).finally(() => {
+                    promise.finally(() => {
 
-                        router.app.$store.commit('setAuthenticating',false);
+                        router.app.$store.commit('setAuthenticating', false);
 
                     });
 
+                    return promise;
                 },
 
-                verify: function (input) {
-
-                    router.app.$store.commit('setAuthenticating',true);
-
-                    return router.app.$http.post(route('login'), input).then(response => {
-
-                        router.app.$store.commit('setUser', response.data.user);
-
-                    }).finally(() => {
-
-                        router.app.$store.commit('setAuthenticating',false);
-
-                    });
-
-                },
-
-                logout: function (soft = false) {
+                logout(soft = false) {
 
                     if (soft === true) {
 
-                        router.app.$store.commit('setUser',{ id: null });
+                        router.app.$store.commit('setUser', {id: null});
 
-                        const login = router.resolve({ name: 'login' });
+                        const login = router.resolve({name: 'login'});
                         const redirect = router.currentRoute.path === login.location.path ? '/' : router.currentRoute.path;
 
                         router.push({
@@ -149,7 +69,7 @@ export default {
 
                 },
 
-                recover: function (input) {
+                recover(input) {
 
                     router.app.$http.post(route('password.update'), input).then(response => {
 
@@ -163,18 +83,68 @@ export default {
 
                 },
 
-                getUser(refresh) {
+                initialize() {
 
-                    if (router.app.isAuthenticated && !refresh) {
-                        return;
-                    }
+                    router.app.$store.commit('setInitializing', true, {root: true});
 
-                    router.app.$http.get(route('api.user')).then(response => {
+                    router.app.$http.get('/app').then(response => {
 
-                        router.app.$store.commit('setUser', response.data);
+                        if (response.data.hasOwnProperty('routes'))
+                            this.$set(this, 'routes', response.data.routes);
+
+                        if (response.data.hasOwnProperty('translations'))
+                            this.$set(this, 'translations', response.data.translations);
+
+                        if (response.data.hasOwnProperty('version'))
+                            this.$set(this, 'version', response.data.version);
+
+                        // TODO check routes are set else set init failed state.
+                        router.app.$store.commit('setInitializing', false, {root: true});
 
                     }).catch(error => {
-                        window.ErrorHandler(router.app, error);
+
+                        // TODO : Handle error
+                        console.error(error, 'data', error.data, 'code', error.code);
+
+                        // TODO pickup if timeout
+                        router.app.$store.commit('setInitializing', 'offline', {root: true});
+
+                    }).finally(() => {
+
+                        this.checkAuth();
+
+                    });
+
+                },
+
+                checkAuth() {
+
+                    router.app.$store.commit('setAuthenticating', true);
+
+                    router.app.$http.get(this.route('app.user')).then(response => {
+
+                        router.app.$store.commit('setUser', response.data, {root: true});
+
+                        if (router.app.isAuthenticated) {
+
+                            const redirect = router.currentRoute.query.hasOwnProperty('redirect') && !!router.currentRoute.query.redirect
+                                ? router.currentRoute.query.redirect : router.currentRoute.path;
+
+                            router.push(redirect, () => {
+                                router.app.$store.commit('setAuthenticating', false, {root: true});
+                            });
+
+                        }
+
+                    }).catch(error => {
+
+                        // TODO Handle error response
+                        router.app.$store.commit('setUser', null, {root: true});
+
+                    }).finally(() => {
+
+                        router.app.$store.commit('setAuthenticating', false, {root: true});
+
                     });
 
                 },
@@ -184,18 +154,21 @@ export default {
                     const args = Array.prototype.slice.call(arguments);
                     const name = args.shift();
 
-                    if (router.app.$store.state.Laravel.routes.hasOwnProperty(name) === false) {
+                    let route = this.routes.find(item => item.name === name);
+                    console.log('find route', name, this.routes, route);
+
+                    if (!!!route) {
                         console.error('Unknown route ', name);
-                        return undefined;
-                    } else {
-                        return '/' + router.app.$store.state.Laravel.routes[name].split('/').map(s => s[0] === '{' ? args.shift() : s).join('/');
+                        return '404';
                     }
+
+                    return '/' + route.uri.split('/').map(s => s[0] === '{' ? args.shift() : s).join('/');
 
                 },
 
-                translate: function (string, args) {
+                translate(string, args) {
 
-                    let value = _.get(router.app.$store.state.Laravel.translations, string);
+                    let value = _.get(router.app.$Laravel.translations, string);
 
                     _.eachRight(args, (paramVal, paramKey) => {
                         value = _.replace(value, `:${paramKey}`, paramVal);

@@ -1,6 +1,6 @@
 <template>
 
-    <v-input-form :action="logMeIn">
+    <v-input-form :action="$Laravel.login" :input="input">
 
         <div class="logo"></div>
 
@@ -35,17 +35,7 @@
 
             }
 
-        }),
-
-        methods: {
-
-            logMeIn() {
-
-                return this.$Laravel.login(this.input);
-
-            }
-
-        }
+        })
 
     }
 

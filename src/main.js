@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 
 /**
  * https://lodash.com/docs
@@ -24,8 +24,8 @@ Vue.config.productionTip = false;
 import Http from './plugins/http'
 Vue.use(Http);
 
-import laravel from './plugins/laravel'
-Vue.use(laravel);
+import Laravel from './plugins/laravel'
+Vue.use(Laravel);
 
 
 /**
@@ -40,7 +40,7 @@ window.App = new Vue({
     render: h => h(App),
     store,
     router,
-    laravel,
+    Laravel,
 
     data() {
 
@@ -52,7 +52,7 @@ window.App = new Vue({
 
     },
 
-    beforeCreate() {
+    beforeMount() {
 
         this.$Laravel.initialize();
 
