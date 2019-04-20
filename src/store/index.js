@@ -36,6 +36,12 @@ const store = new Vuex.Store({
 
         },
 
+        setAuthenticated(state,payload) {
+
+            state.isAuthenticated = payload;
+
+        },
+
         setInitializing(state,payload) {
 
             state.isInitializing = payload;

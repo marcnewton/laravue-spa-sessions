@@ -1,6 +1,8 @@
 import router from '../../router'
 
-import _ from "lodash";
+import _ from "lodash"
+
+import { mapState } from 'vuex'
 
 export default {
 
@@ -15,53 +17,44 @@ export default {
                 translations: {}
             }),
 
+            computed: {
+
+                ...mapState(['isAuthenticated'])
+
+            },
+
             methods: {
 
                 login(input) {
 
                     router.app.$store.commit('setAuthenticating', true);
 
-                    let promise = router.app.$http.post(route('login'), input).then(response => {
+                    return new Promise((resolve,reject) => {
 
-                        router.app.$store.commit('setUser', response.data.user);
+                        router.app.$http.post(route('login'), input).then(response => {
+
+                            router.app.$store.commit('setUser', response.data.user);
+                            resolve(response);
+
+                        }).cache(error => {
+
+                            reject(error);
+
+                        }).finally(() => {
+
+                            router.app.$store.commit('setAuthenticating', false);
+
+                        });
 
                     });
 
-                    promise.finally(() => {
-
-                        router.app.$store.commit('setAuthenticating', false);
-
-                    });
-
-                    return promise;
                 },
 
-                logout(soft = false) {
+                logout() {
 
-                    if (soft === true) {
+                    router.app.$http.post(route('logout')).then(response => {
 
-                        router.app.$store.commit('setUser', {id: null});
-
-                        const login = router.resolve({name: 'login'});
-                        const redirect = router.currentRoute.path === login.location.path ? '/' : router.currentRoute.path;
-
-                        router.push({
-                            name: 'login',
-                            query: {
-                                redirect: redirect
-                            }
-                        });
-
-                        return;
-                    }
-
-                    router.app.$http.get(route('logout')).then(response => {
-
-                        this.$nextTick(() => {
-                            // We have to redirect because Laravel does not return a fresh token on a logout response.
-                            // TODO Find alternative solution to redirect.
-                            window.location.href = '/';
-                        });
+                        this.checkAuth();
 
                     }).catch(error => {
                         console.error(error);
@@ -125,7 +118,7 @@ export default {
 
                         router.app.$store.commit('setUser', response.data, {root: true});
 
-                        if (router.app.isAuthenticated) {
+                        if (this.isAuthenticated) {
 
                             const redirect = router.currentRoute.query.hasOwnProperty('redirect') && !!router.currentRoute.query.redirect
                                 ? router.currentRoute.query.redirect : router.currentRoute.path;
@@ -139,7 +132,8 @@ export default {
                     }).catch(error => {
 
                         // TODO Handle error response
-                        router.app.$store.commit('setUser', null, {root: true});
+                        router.app.$store.commit('setUser',null,{root: true});
+                        router.app.$store.commit('setAuthenticated',false,{root: true});
 
                     }).finally(() => {
 

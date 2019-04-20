@@ -1,9 +1,8 @@
 <template>
 
-    <div>
-        <div class="logo"></div>
+    <main>
         <h1>Hello {{ user.name }}</h1>
-    </div>
+    </main>
 
 </template>
 

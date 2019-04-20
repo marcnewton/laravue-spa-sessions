@@ -1,6 +1,16 @@
 <template>
 
-    <div class="layout-splash layout-container">
+    <div class="layout-header">
+
+        <header>
+
+            <div class="logo"></div>
+
+            <div class="spacer"></div>
+
+            <button class="" @click="$Laravel.logout">Logout</button>
+
+        </header>
 
         <transition name="fade">
             <router-view/>

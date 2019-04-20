@@ -8,19 +8,29 @@
 
 <script>
 
+    import { mapState } from 'vuex'
+
     export default {
 
         name: 'App',
         computed: {
 
+            ...mapState(['isInitializing','isAuthenticated','inMaintenance']),
+
             layout() {
 
-                if(this.$root.isInitializing)
+                if(this.isInitializing)
                     return 'layout-initializing';
 
-                let layout = this.$route.meta.layout || 'default';
+                if(this.inMaintenance)
+                    return 'layout-maintenance';
 
-                return `layout-${layout}` || 'layout-default';
+                if( ( this.$router.currentRoute.meta.hasOwnProperty('noAuth') === false || this.$router.currentRoute.meta.hasOwnProperty('requireAuth') === true ) && this.isAuthenticated === false)
+                    return 'layout-login';
+
+                let layout = this.$route.currentRoute.meta.layout || 'default';
+
+                return `layout-${layout}`;
 
             }
 

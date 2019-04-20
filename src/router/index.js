@@ -11,24 +11,6 @@ let router = new Router({
 
 });
 
-router.beforeEach((to, from, next) => {
-
-    if (to.meta.hasOwnProperty('noAuth') === false && router.app.isAuthenticated === false) {
-
-        next({
-            name: 'login',
-            query: {
-                redirect: to.fullPath
-            }
-        });
-
-        return;
-    }
-
-    next();
-
-});
-
 router.afterEach((to,from) => {
 
     document.title = !!!to.meta.title ? '' : to.meta.title;
