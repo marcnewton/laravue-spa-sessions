@@ -25,11 +25,13 @@
                 if(this.inMaintenance)
                     return 'layout-maintenance';
 
-                if( ( this.$router.currentRoute.meta.hasOwnProperty('noAuth') === false || this.$router.currentRoute.meta.hasOwnProperty('requireAuth') === true ) && this.isAuthenticated === false)
+                let meta = this.$router.currentRoute.meta;
+console.log('meta',meta, (meta.hasOwnProperty('noAuth') && meta.noAuth), (meta.hasOwnProperty('requireAuth') && meta.requireAuth === true),  this.isAuthenticated === false);
+                if( ( (meta.hasOwnProperty('noAuth') && meta.noAuth) === false || (meta.hasOwnProperty('requireAuth') && meta.requireAuth) === true ) && this.isAuthenticated === false )
                     return 'layout-login';
-
-                let layout = this.$route.currentRoute.meta.layout || 'default';
-
+console.log('dynamic layout');
+                let layout = meta.layout || 'default';
+console.log('specified layout', layout);
                 return `layout-${layout}`;
 
             }

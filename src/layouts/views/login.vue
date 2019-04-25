@@ -2,7 +2,7 @@
 
     <div class="layout-splash layout-container">
 
-        <v-input-form :action="login" :input="input">
+        <v-input-form :action="$Laravel.login" :input="input">
 
             <div class="logo"></div>
 
@@ -39,19 +39,7 @@
 
             }
 
-        }),
-
-        methods: {
-
-            login () {
-
-                this.$Laravel.login().then(result => {}, error => {
-                    console.log('login error', error);
-                });
-
-            }
-
-        }
+        })
 
     }
 

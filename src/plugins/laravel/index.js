@@ -1,3 +1,4 @@
+import config from '~/config'
 import router from '../../router'
 
 import _ from "lodash"
@@ -38,11 +39,8 @@ export default {
 
                         }).cache(error => {
 
-                            reject(error);
-
-                        }).finally(() => {
-
                             router.app.$store.commit('setAuthenticating', false);
+                            reject(error);
 
                         });
 
@@ -54,10 +52,12 @@ export default {
 
                     router.app.$http.post(route('logout')).then(response => {
 
-                        this.checkAuth();
+
 
                     }).catch(error => {
                         console.error(error);
+                    }).finally(() => {
+                        this.checkAuth();
                     });
 
                 },
@@ -66,9 +66,7 @@ export default {
 
                     router.app.$http.post(route('password.update'), input).then(response => {
 
-                        router.app.$store.commit('setUser', response.data.user);
-
-                        router.push(router.currentRoute.query.redirect || '/');
+                        router.push(router.currentRoute.query.redirect || config.redirectTo);
 
                     }).catch(error => {
                         // TODO Handle errors
@@ -80,7 +78,7 @@ export default {
 
                     router.app.$store.commit('setInitializing', true, {root: true});
 
-                    router.app.$http.get('/app').then(response => {
+                    router.app.$http.get(config.requestPrefix).then(response => {
 
                         if (response.data.hasOwnProperty('routes'))
                             this.$set(this, 'routes', response.data.routes);
@@ -127,19 +125,28 @@ export default {
                                 router.app.$store.commit('setAuthenticating', false, {root: true});
                             });
 
+                            return;
                         }
+
+                        this.reset();
 
                     }).catch(error => {
 
                         // TODO Handle error response
-                        router.app.$store.commit('setUser',null,{root: true});
-                        router.app.$store.commit('setAuthenticated',false,{root: true});
+                        this.reset();
 
                     }).finally(() => {
 
                         router.app.$store.commit('setAuthenticating', false, {root: true});
 
                     });
+
+                },
+
+                reset() {
+
+                    router.app.$store.commit('setUser',null,{root: true});
+                    router.app.$store.commit('setAuthenticated',false,{root: true});
 
                 },
 

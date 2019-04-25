@@ -20,6 +20,11 @@
                 default: () => {
                     this.$emit('submit');
                 }
+            },
+
+            input: {
+                type: Object,
+                default: () => ({})
             }
 
         },
@@ -35,20 +40,38 @@
 
             submit() {
 
-                this.action().catch(error => {
+                return this.action(this.input).then(response => {
 
-                    console.log('login error comp',error.response.data);
+                    const redirect = this.$router.currentRoute.query.hasOwnProperty('redirect') && this.$router.currentRoute.query.redirect
+                        ? this.$router.currentRoute.query.redirect : this.$router.currentRoute.path;
 
-                    if(error.response.data.hasOwnProperty('message'))
-                        this.$set(this,'message',error.response.data.message);
+                    this.$router.push(redirect);
 
-                    if(error.response.data.hasOwnProperty('errors'))
-                        this.$set(this,'errors',error.response.data.errors);
+                }, error => {
+
+                    console.error('error',error);
+
+                    // if(error.hasOwnProperty('response') === false) {
+                    //     console.error(error);
+                    //     return;
+                    // }
+                    //
+                    // if(error.response.hasOwnProperty('data') === false) {
+                    //     console.error(error.response);
+                    // }
+                    //
+                    // if(error.response.data.hasOwnProperty('message'))
+                    //     this.$set(this,'message',error.response.data.message);
+                    //
+                    // if(error.response.data.hasOwnProperty('errors'))
+                    //     this.$set(this,'errors',error.response.data.errors);
+                    //
+                    // this.$emit('error',error);
+
 
                 });
 
             }
-
         }
     }
 
