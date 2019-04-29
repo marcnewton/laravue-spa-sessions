@@ -20,7 +20,7 @@ Route::prefix('app')->group(function() {
 
     Auth::Routes();
 
-    Route::name('app.')->group(function() {
+    Route::name('app.')->middleware('auth')->group(function() {
 
         Route::get('/user', function (Request $request) {
             return $request->user();

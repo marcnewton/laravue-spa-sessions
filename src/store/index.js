@@ -8,11 +8,11 @@ const store = new Vuex.Store({
 
         user: null,
 
-        isAuthenticating: false,
+        isInitializing: true,
+
+        isAuthenticating: true,
 
         isAuthenticated: false,
-
-        isInitializing: true,
 
         inMaintenance: false
 

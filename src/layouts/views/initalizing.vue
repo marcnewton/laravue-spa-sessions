@@ -6,13 +6,17 @@
 
             <div class="logo"></div>
 
-            <template v-if="isInitializing === true">
+            <template v-if="$root.isInitializing === true">
                 Initializing... Please Wait...
             </template>
 
-            <template v-if="isInitializing === 'offline'">
+            <template v-else-if="$root.isInitializing === 'offline'">
                 Services appear to be unavailable...
                 <button @click="$Laravel.initialize">Retry</button>
+            </template>
+
+            <template v-else-if="$root.isAuthenticating">
+                Authenticating user...
             </template>
 
         </div>
@@ -23,17 +27,9 @@
 
 <script>
 
-    import { mapState } from 'vuex'
-
     export default {
 
-        name: 'layout-initializing',
-
-        computed: {
-
-            ...mapState(['isInitializing']),
-
-        }
+        name: 'layout-initializing'
 
     }
 

@@ -7,7 +7,7 @@ const Http = {
         baseURL: null
     }) {
 
-        if(this.installed)
+        if (this.installed)
             return;
 
         this.installed = true;
@@ -21,10 +21,10 @@ const Http = {
 
     register(Vue) {
 
-        if(this.params.baseURL)
+        if (this.params.baseURL)
             axios.defaults.baseURL = this.params.baseURL;
 
-        if(this.params.hasOwnProperty('timeout'))
+        if (this.params.hasOwnProperty('timeout'))
             axios.defaults.timeout = this.params.timeout;
 
         axios.defaults.withCredentials = true;
@@ -36,7 +36,6 @@ const Http = {
 
         // Add a request interceptor
         axios.interceptors.request.use(
-
             // Do something before request is sent
             function (config) {
 
@@ -62,10 +61,9 @@ const Http = {
         );
 
         axios.interceptors.response.use(
-
             function (response) {
 
-                if(response.headers.hasOwnProperty('x-csrf-token')) {
+                if (response.headers.hasOwnProperty('x-csrf-token')) {
 
                     const token = response.headers['x-csrf-token'];
 
@@ -84,27 +82,35 @@ const Http = {
 
             function (error) {
 
-                if(typeof error !== 'object' || !error.response) {
+                if (typeof error !== 'object' || !error.response) {
 
                     router.app.loading--;
 
                     if (router.app.loading < 0)
                         router.app.loading = 0;
 
-                if (error.code === 'ECONNABORTED') {
-                    router.app.serviceTimeouts++;
+                    if (error.code === 'ECONNABORTED') {
+                        router.app.serviceTimeouts++;
 
-                    if(router.app.serviceTimeouts <= 3)
-                        return axios.request(error.config);
+                        if (router.app.serviceTimeouts <= 3)
+                            return axios.request(error.config);
+                    }
+
+                    if (typeof error !== 'object' || !error.response)
+                        return Promise.reject(error);
                 }
 
-                if(typeof error !== 'object' || !error.response)
-                    return Promise.reject(error);
+                if (error.response.headers.hasOwnProperty('x-csrf-token')) {
+
+                    const token = error.response.headers['x-csrf-token'];
+
+                    axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
+                    router.app.$Laravel.csrfToken = token;
                 }
 
-                if(error.response.hasOwnProperty('status')) {
+                if (error.response.hasOwnProperty('status')) {
 
-                    switch(error.response.status) {
+                    switch (error.response.status) {
 
                         case 401: // Unauthorized
                             router.app.$Laravel.reset();
@@ -126,7 +132,6 @@ const Http = {
                 return Promise.reject(error);
 
             }
-
         );
 
     }

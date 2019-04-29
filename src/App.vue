@@ -8,30 +8,31 @@
 
 <script>
 
-    import { mapState } from 'vuex'
-
     export default {
 
         name: 'App',
         computed: {
 
-            ...mapState(['isInitializing','isAuthenticated','inMaintenance']),
+            meta() {
+                return this.$router.currentRoute.meta;
+            },
 
             layout() {
 
-                if(this.isInitializing)
+                if (this.$root.isInitializing || this.$root.isAuthenticating)
                     return 'layout-initializing';
 
-                if(this.inMaintenance)
+                if (this.$root.inMaintenance)
                     return 'layout-maintenance';
 
-                let meta = this.$router.currentRoute.meta;
-console.log('meta',meta, (meta.hasOwnProperty('noAuth') && meta.noAuth), (meta.hasOwnProperty('requireAuth') && meta.requireAuth === true),  this.isAuthenticated === false);
-                if( ( (meta.hasOwnProperty('noAuth') && meta.noAuth) === false || (meta.hasOwnProperty('requireAuth') && meta.requireAuth) === true ) && this.isAuthenticated === false )
+                let layout = this.meta.layout || 'default';
+
+                if (this.meta.hasOwnProperty('noAuth') && this.meta.noAuth)
+                    return `layout-${layout}`;
+
+                if (this.$root.isAuthenticated === false)
                     return 'layout-login';
-console.log('dynamic layout');
-                let layout = meta.layout || 'default';
-console.log('specified layout', layout);
+
                 return `layout-${layout}`;
 
             }

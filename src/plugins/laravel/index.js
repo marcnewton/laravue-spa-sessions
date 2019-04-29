@@ -18,12 +18,6 @@ export default {
                 translations: {}
             }),
 
-            computed: {
-
-                ...mapState(['isAuthenticated'])
-
-            },
-
             methods: {
 
                 login(input) {
@@ -34,13 +28,16 @@ export default {
 
                         router.app.$http.post(route('login'), input).then(response => {
 
-                            router.app.$store.commit('setUser', response.data.user);
+                            router.app.$store.commit('setUser', response.data.user, {root: true});
                             resolve(response);
 
                         }).cache(error => {
 
-                            router.app.$store.commit('setAuthenticating', false);
                             reject(error);
+
+                        }).finally(() => {
+
+                            router.app.$store.commit('setAuthenticating', false);
 
                         });
 
@@ -116,21 +113,18 @@ export default {
 
                         router.app.$store.commit('setUser', response.data, {root: true});
 
-                        if (this.isAuthenticated) {
+                        const redirect = router.currentRoute.query.hasOwnProperty('redirect') && !!router.currentRoute.query.redirect
+                            ? router.currentRoute.query.redirect : router.currentRoute.path;
 
-                            const redirect = router.currentRoute.query.hasOwnProperty('redirect') && !!router.currentRoute.query.redirect
-                                ? router.currentRoute.query.redirect : router.currentRoute.path;
-
-                            router.push(redirect, () => {
-                                router.app.$store.commit('setAuthenticating', false, {root: true});
-                            });
-
-                            return;
-                        }
-
-                        this.reset();
+                        router.push(redirect, () => {
+                            router.app.$store.commit('setAuthenticating', false, {root: true});
+                        });
 
                     }).catch(error => {
+
+                        console.error('error', error);
+
+                        console.log('checkAuth fired reset() on error');
 
                         // TODO Handle error response
                         this.reset();
@@ -145,6 +139,7 @@ export default {
 
                 reset() {
 
+                    console.log('reset fired');
                     router.app.$store.commit('setUser',null,{root: true});
                     router.app.$store.commit('setAuthenticated',false,{root: true});
 

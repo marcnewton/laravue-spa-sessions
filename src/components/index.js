@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 /**
- * Import components.
+ * Import global components.
  */
 
 import vInputForm from './input/form'
