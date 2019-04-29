@@ -122,12 +122,7 @@ export default {
 
                     }).catch(error => {
 
-                        console.error('error', error);
-
-                        console.log('checkAuth fired reset() on error');
-
-                        // TODO Handle error response
-                        this.reset();
+                        // TODO Handle error response, ignore codes handled by interceptor
 
                     }).finally(() => {
 
