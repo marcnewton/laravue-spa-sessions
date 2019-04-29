@@ -31,7 +31,7 @@ export default {
                             router.app.$store.commit('setUser', response.data.user, {root: true});
                             resolve(response);
 
-                        }).cache(error => {
+                        }).catch(error => {
 
                             reject(error);
 
@@ -134,7 +134,6 @@ export default {
 
                 reset() {
 
-                    console.log('reset fired');
                     router.app.$store.commit('setUser',null,{root: true});
                     router.app.$store.commit('setAuthenticated',false,{root: true});
 
