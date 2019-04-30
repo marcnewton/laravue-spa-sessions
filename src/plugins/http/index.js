@@ -68,7 +68,7 @@ const Http = {
                     const token = response.headers['x-csrf-token'];
 
                     axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
-                    router.app.$Laravel.csrfToken = token;
+                    router.app.$laravel.csrfToken = token;
                 }
 
                 router.app.loading--;
@@ -105,7 +105,7 @@ const Http = {
                     const token = error.response.headers['x-csrf-token'];
 
                     axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
-                    router.app.$Laravel.csrfToken = token;
+                    router.app.$laravel.csrfToken = token;
                 }
 
                 if (error.response.hasOwnProperty('status')) {
@@ -113,11 +113,11 @@ const Http = {
                     switch (error.response.status) {
 
                         case 401: // Unauthorized
-                            router.app.$Laravel.reset();
+                            router.app.$laravel.reset();
                             break;
 
                         case 419: // Authentication Timeout
-                            router.app.$Laravel.reset();
+                            router.app.$laravel.reset();
                             break
 
                     }

@@ -12,7 +12,7 @@
 
             <template v-else-if="$root.isInitializing === 'offline'">
                 Services appear to be unavailable...
-                <button @click="$Laravel.initialize">Retry</button>
+                <button @click="$laravel.initialize">Retry</button>
             </template>
 
             <template v-else-if="$root.isAuthenticating">

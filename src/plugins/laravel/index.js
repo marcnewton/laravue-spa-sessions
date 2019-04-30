@@ -1,21 +1,21 @@
 import config from '~/config'
 import router from '../../router'
 
-import _ from "lodash"
-
-import { mapState } from 'vuex'
+import _ from 'lodash'
 
 export default {
 
     install: (Vue) => {
 
-        Vue.prototype.$Laravel = new Vue({
+        Vue.prototype.$laravel = new Vue({
 
             data: () => ({
+
                 csrfToken: '',
                 version: 0,
                 routes: [],
                 translations: {}
+
             }),
 
             methods: {
@@ -24,7 +24,7 @@ export default {
 
                     router.app.$store.commit('setAuthenticating', true);
 
-                    return new Promise((resolve,reject) => {
+                    return new Promise((resolve, reject) => {
 
                         router.app.$http.post(route('login'), input).then(response => {
 
@@ -47,11 +47,8 @@ export default {
 
                 logout() {
 
-                    router.app.$http.post(route('logout')).then(response => {
-
-
-
-                    }).catch(error => {
+                    router.app.$http.post(route('logout')).catch(error => {
+                        // TODO Handle logout error
                         console.error(error);
                     }).finally(() => {
                         this.checkAuth();
@@ -134,8 +131,8 @@ export default {
 
                 reset() {
 
-                    router.app.$store.commit('setUser',null,{root: true});
-                    router.app.$store.commit('setAuthenticated',false,{root: true});
+                    router.app.$store.commit('setUser', null, {root: true});
+                    router.app.$store.commit('setAuthenticated', false, {root: true});
 
                 },
 
@@ -157,7 +154,7 @@ export default {
 
                 translate(string, args) {
 
-                    let value = _.get(router.app.$Laravel.translations, string);
+                    let value = _.get(this.translations, string);
 
                     _.eachRight(args, (paramVal, paramKey) => {
                         value = _.replace(value, `:${paramKey}`, paramVal);
@@ -167,20 +164,31 @@ export default {
 
                 }
 
+
             }
+
+        });
+
+        // Create reference to root instance from Laravel instance.
+
+        Vue.mixin({
+
+            data: () => ({
+                laravel: Vue.prototype.$laravel.$data
+            })
 
         });
 
         // Global shorthand helpers
 
-        window.Laravel = Vue.prototype.$Laravel;
-        window.route = Vue.prototype.$Laravel.route;
-        window.trans = Vue.prototype.$Laravel.translate;
+        window.Laravel = Vue.prototype.$laravel;
+        window.route = Vue.prototype.$laravel.route;
+        window.trans = Vue.prototype.$laravel.translate;
 
-        // Vue bind helpers
+        // Vue template bind helpers
 
-        Vue.trans = Vue.prototype.$Laravel.translate;
-        Vue.prototype.$trans = Vue.prototype.$Laravel.translate;
+        Vue.trans = Vue.prototype.$laravel.translate;
+        Vue.prototype.$trans = Vue.prototype.$laravel.translate;
     }
 
 };

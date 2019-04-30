@@ -1,7 +1,9 @@
 <template>
 
-    <main>
-        <h1>Hello {{ user.name }}</h1>
+    <main class="page-home flex column center middle">
+        <h4>Welcome back {{ user.name }}</h4>
+        <div class="logo"></div>
+
     </main>
 
 </template>

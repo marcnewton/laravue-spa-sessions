@@ -2,7 +2,7 @@
 
     <div class="layout-splash layout-container">
 
-        <v-input-form :action="$Laravel.login" :input="input">
+        <v-input-form :action="$laravel.login" :input="input">
 
             <div class="logo"></div>
 

@@ -8,7 +8,7 @@
 
             <div class="spacer"></div>
 
-            <button class="" @click="$Laravel.logout">Logout</button>
+            <button @click="$laravel.logout">Logout</button>
 
         </header>
 

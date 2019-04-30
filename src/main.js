@@ -40,7 +40,6 @@ window.App = new Vue({
     render: h => h(App),
     store,
     router,
-    Laravel,
 
     data() {
 
@@ -54,7 +53,7 @@ window.App = new Vue({
 
     beforeMount() {
 
-        this.$Laravel.initialize();
+        this.$laravel.initialize();
 
     },
 
