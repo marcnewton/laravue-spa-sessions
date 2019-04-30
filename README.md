@@ -7,24 +7,18 @@ This source code is ideal for the most simplistic of small SPA builds looking fo
 
 ## Alternatives
 
-Vuetifiy edition (coming soon)
+~~Vuetifiy edition (TODO)~~
 
-OAuth edition (Laravel Passport + CORS) (coming soon)
+~~OAuth edition (Laravel Passport + CORS) (TODO)~~
 
 
 ## Installation
 
-From https://laravel.com/docs/5.7/installation
-composer global require laravel/installer
+Start a new Laravel project as per the official installation guide lines: https://laravel.com/docs/5.8/installation
 
-in project root folder:
-laravel new
-
-php artisan key:generate
-
-#### Remove redundant files
-Delete webpack.mix.js
-Clear the resources folder, only an empty views folder should remain.
+Open your new Laravel project:
+ - Delete webpack.mix.js
+ - Clear the resources folder of everything but the `lang` dir.
 
 
 Unpack this repositories source over the top of your new Laravel project.
