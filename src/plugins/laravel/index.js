@@ -58,12 +58,19 @@ export default {
 
                 recover(input) {
 
-                    router.app.$http.post(route('password.update'), input).then(response => {
+                    return new Promise((resolve, reject) => {
 
-                        router.push(router.currentRoute.query.redirect || config.redirectTo);
+                        router.app.$http.post(route('password.update'), input).then(response => {
 
-                    }).catch(error => {
-                        // TODO Handle errors
+                            router.push(router.currentRoute.query.redirect || config.redirectTo);
+                            resolve(response);
+
+                        }).catch(error => {
+
+                            reject(error);
+
+                        });
+
                     });
 
                 },

@@ -8,6 +8,10 @@
 
 .flex, .inline-flex {
 
+    &.spaced {
+        justify-content: space-between;
+    }
+
     &.center {
         justify-content: center;
     }

@@ -21,5 +21,5 @@ return [
 	'remember' => 'Remember Me',
 	'email' => 'E-Mail Address',
 	'password' => 'Password',
-	'forgotten' => 'Forgot Your Password?',
+	'forgotten' => 'Forgot Your Password?'
 ];
