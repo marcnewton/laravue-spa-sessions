@@ -2,7 +2,6 @@
 
     <form @submit.prevent="submit">
         <slot/>
-        <v-input-errors :message="message" :errors="errors" />
     </form>
 
 </template>
@@ -17,7 +16,7 @@
 
             action: {
                 type: Function,
-                default: () => {
+                default: function () {
                     this.$emit('submit');
                 }
             },
@@ -29,45 +28,41 @@
 
         },
 
-        data: () => ({
-
-            message: '',
-            errors: {}
-
-        }),
-
         methods: {
 
             submit() {
 
-                return this.action(this.input).then(response => {
+                let form = this;
 
-                    const redirect = this.$router.currentRoute.query.hasOwnProperty('redirect') && this.$router.currentRoute.query.redirect
-                        ? this.$router.currentRoute.query.redirect : this.$router.currentRoute.path;
+                form.$emit('loading', true);
 
-                    this.$router.push(redirect);
+                form.action(this.input).then(response => {
+
+                    form.$emit('success',response);
 
                 }, error => {
 
-                    console.error('error',error);
+                    if(error.hasOwnProperty('response') === false) {
+                        console.error(error);
+                        return;
+                    }
 
-                    // if(error.hasOwnProperty('response') === false) {
-                    //     console.error(error);
-                    //     return;
-                    // }
-                    //
-                    // if(error.response.hasOwnProperty('data') === false) {
-                    //     console.error(error.response);
-                    // }
-                    //
-                    // if(error.response.data.hasOwnProperty('message'))
-                    //     this.$set(this,'message',error.response.data.message);
-                    //
-                    // if(error.response.data.hasOwnProperty('errors'))
-                    //     this.$set(this,'errors',error.response.data.errors);
-                    //
-                    // this.$emit('error',error);
+                    if(error.response.hasOwnProperty('data') === false) {
+                        console.error(error.response);
+                    }
 
+                    if(error.response.data.hasOwnProperty('message'))
+                        this.$notify(error.response.data.message,'error');
+
+                    //if(error.response.data.hasOwnProperty('errors'))
+
+
+
+                    form.$emit('error',error);
+
+                }).finally(() => {
+
+                    form.$emit('loading', false);
 
                 });
 
