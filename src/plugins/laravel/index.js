@@ -29,15 +29,13 @@ export default {
                         router.app.$http.post(route('login'), input).then(response => {
 
                             router.app.$store.commit('setUser', response.data.user, {root: true});
+                            router.app.$store.commit('setAuthenticating', false);
                             resolve(response);
 
                         }).catch(error => {
 
-                            reject(error);
-
-                        }).finally(() => {
-
                             router.app.$store.commit('setAuthenticating', false);
+                            reject(error);
 
                         });
 
@@ -60,7 +58,21 @@ export default {
 
                     return new Promise((resolve, reject) => {
 
-                        router.app.$http.post(route('password.update'), input).then(response => {
+                        router.app.$http.post(route('password.email'), {email: input.email})
+                            .then(response => { resolve(response); })
+                            .catch(error => { reject(error); });
+
+                    });
+
+                },
+
+                update(input) {
+
+                    console.log('update', update);
+
+                    return new Promise((resolve, reject) => {
+
+                        router.app.$http.post(route('password.reset', {token: router.currentRoute.query.token}), {email: input.email}).then(response => {
 
                             router.push(router.currentRoute.query.redirect || config.redirectTo);
                             resolve(response);

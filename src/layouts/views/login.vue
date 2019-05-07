@@ -2,17 +2,23 @@
 
     <div class="layout-splash layout-container">
 
-        <transition name="fade" mode="out-in">
+        <notification-app />
 
-            <v-input-form :action="$laravel.login" :input="input" v-if="screen === 'login'">
+        <div>
+            <div class="logo"></div>
+        </div>
 
-                <div class="logo"></div>
+        <transition name="fade">
+
+            <v-input-form v-if="screen === 'login'" :action="$laravel.login" :input="input" @loading="setLoading">
 
                 <label for="input-email">{{ $trans('auth.email') }}</label>
-                <input v-model="input.email" type="email" id="input-email" autocomplete="current-username" class="full-width"/>
+                <input v-model="input.email" type="email" id="input-email" autocomplete="current-username"
+                       class="full-width"/>
 
                 <label for="input-password">{{ $trans('auth.password') }}</label>
-                <input v-model="input.password" type="password" id="input-password" autocomplete="current-password" class="full-width"/>
+                <input v-model="input.password" type="password" id="input-password" autocomplete="current-password"
+                       class="full-width"/>
 
                 <div class="checkbox">
                     <input v-model="input.remember" type="checkbox" id="input-remember"/>
@@ -20,22 +26,25 @@
                 </div>
 
                 <div class="flex spaced full-width">
-                    <button type="button" :disabled="$root.isAuthenticating" @click.prevent="screen = 'recover'">{{ $trans('auth.forgotten') }}</button>
-                    <button type="submit" :disabled="$root.isAuthenticating">{{ $trans('auth.login') }}</button>
+                    <button type="button" :disabled="loading" @click.prevent="screen = 'request'">{{
+                        $trans('auth.forgotten') }}
+                    </button>
+                    <button type="submit" :disabled="loading">{{ $trans('auth.login') }}</button>
                 </div>
 
             </v-input-form>
 
-            <v-input-form :action="$laravel.recover" :input="input" v-else>
-
-                <div class="logo"></div>
+            <v-input-form v-else :action="$laravel.recover" :input="input" @success="success" @loading="setLoading">
 
                 <label for="input-recovery-email">{{ $trans('auth.email') }}</label>
-                <input v-model="input.email" type="email" id="input-recovery-email" autocomplete="current-username" class="full-width"/>
+                <input v-model="input.email" type="email" id="input-recovery-email" autocomplete="current-username"
+                       class="full-width"/>
 
                 <div class="flex spaced full-width">
-                    <button type="button" :disabled="$root.isAuthenticating" @click.prevent="screen = 'login'">{{ $trans('common.cancel') }}</button>
-                    <button type="submit" :disabled="$root.isAuthenticating">{{ $trans('passwords.request') }}</button>
+                    <button type="button" :disabled="loading" @click.prevent="screen = 'login'">{{
+                        $trans('common.cancel') }}
+                    </button>
+                    <button type="submit" :disabled="loading">{{ $trans('passwords.request') }}</button>
                 </div>
 
             </v-input-form>
@@ -62,9 +71,33 @@
 
             },
 
-            screen: 'login'
+            screen: 'login',
 
-        })
+            loading: false
+
+        }),
+
+        methods: {
+
+            setLoading(val) {
+
+                this.loading = val;
+
+            },
+
+            success(response) {
+
+                this.screen = 'login';
+
+                if (response.data.hasOwnProperty('message')) {
+                    this.$notify(response.data.message);
+                }
+
+                console.log('response',);
+
+            }
+
+        }
 
     }
 
