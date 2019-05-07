@@ -27,6 +27,10 @@ Vue.use(Http);
 import Laravel from './plugins/laravel'
 Vue.use(Laravel);
 
+import Notifications from './plugins/notification';
+Vue.use(Notifications, {
+    timeout: 9000
+});
 
 /**
  * Initialize the main application
