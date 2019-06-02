@@ -1,8 +1,18 @@
 path = require('path');
 
-target = 'http://192.168.10.10';
+const target = 'http://192.168.10.10';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
+
+    pwa: {
+        name: 'Laravue SPA',
+        msTileColor: '#4DBA87'
+    },
+
+    baseUrl: undefined,
+    assetsDir: undefined,
 
     devServer: {
         disableHostCheck: true,
@@ -25,10 +35,8 @@ module.exports = {
         }
     },
 
-    baseUrl: undefined,
     outputDir: 'public',
     assetsDir: undefined,
-    indexPath: process.env.NODE_ENV === 'production' ? '../resources/views/app.blade.php' : 'index.html',
     runtimeCompiler: true,
     filenameHashing: true,
     productionSourceMap: undefined,
@@ -39,6 +47,18 @@ module.exports = {
 
         config.plugins.delete('copy');
 
+        if(isProduction) {
+
+            config
+                .plugin('html')
+                .tap(args => {
+                    args[0].template = 'src/templates/app.blade.php';
+                    args[0].filename = '../resources/views/app.blade.php';
+                    return args
+                })
+
+        }
+
     },
 
     configureWebpack: {
@@ -47,11 +67,6 @@ module.exports = {
                 '~' : path.resolve(__dirname,'src')
             }
         }
-    },
-
-    pwa: {
-        name: 'Laravue SPA',
-        msTileColor: '#4DBA87'
     }
 
 }
