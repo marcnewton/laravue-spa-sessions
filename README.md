@@ -92,7 +92,10 @@ You must use VUE CLI
 > See [HTML & Static Assets](https://cli.vuejs.org/guide/html-and-static-assets.html) for more information on how webpack handles assets.
 
 
+# Check Production Build Locally
 
+If you have used `build-public` you can check the final app package functionality by visiting your VM's ip, assuming your using homestead: http://192.168.10.10.
+You will be served the actual production bundle rather than what is served by the serve task.
 
 
 
