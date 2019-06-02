@@ -3,24 +3,51 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
-        "build": "rm -rf public/{js,css,img} && vue-cli-service build --no-clean"
+        "build": "vue-cli-service build",
+        "build-public": "rm -rf ../public/{js,css,img,fonts} && vue-cli-service build --dest public --no-clean"
     },
     "devDependencies": {
-        "@vue/cli-plugin-babel": "^3.5.5",
-        "@vue/cli-service": "^3.5.3",
-        "axios": "^0.18",
-        "babel-core": "^6.26.3",
-        "babel-jest": "^23.6.0",
-        "file-loader": "^2.0.0",
+        "@babel/core": "^7.4.5",
+        "@vue/cli-plugin-babel": "^3.8.0",
+        "@vue/cli-plugin-eslint": "^3.8.0",
+        "@vue/cli-service": "^3.8.0",
+        "axios": "^0.19.0",
+        "babel-jest": "^24.8.0",
+        "file-loader": "^3.0.1",
         "lodash": "^4.17.11",
-        "node-sass": "^4.11.0",
+        "node-sass": "^4.12.0",
         "popper.js": "^1.15.0",
         "sass-loader": "^7.1.0",
+        "tailwindcss": "^1.0.3",
         "vue": "^2.6.10",
-        "vue-router": "^3.0.3",
+        "vue-router": "^3.0.6",
         "vue-style-loader": "^4.1.2",
         "vue-template-compiler": "^2.6.10",
-        "vuex": "^2.5.0",
-        "webpack": "^4.29.6"
-    }
+        "vuex": "^3.1.1",
+        "webpack": "^4.32.2"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "rules": {},
+        "parserOptions": {
+            "parser": "babel-eslint"
+        }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ]
 }
