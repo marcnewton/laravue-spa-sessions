@@ -4,7 +4,7 @@
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
-        "build-public": "rm -rf ../public/{js,css,img,fonts} && vue-cli-service build --dest public --no-clean"
+        "build-public": "rm -rf public/{js,css,img,fonts} && vue-cli-service build --dest public --no-clean"
     },
     "devDependencies": {
         "@babel/core": "^7.4.5",
