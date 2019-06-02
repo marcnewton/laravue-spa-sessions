@@ -12,8 +12,8 @@ Vue.prototype._ = _;
  * Import extensions
  */
 
-import router from './router';
-import store from './store';
+import router from './router'
+import store from './store'
 
 Vue.config.productionTip = false;
 
@@ -27,7 +27,7 @@ Vue.use(Http);
 import Laravel from './plugins/laravel'
 Vue.use(Laravel);
 
-import Notifications from './plugins/notification';
+import Notifications from './plugins/notification'
 Vue.use(Notifications, {
     timeout: 9000
 });

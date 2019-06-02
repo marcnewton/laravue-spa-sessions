@@ -1,6 +1,6 @@
 <template>
 
-    <transition name="fade">
+    <transition mode="out-in">
         <component :is="layout"/>
     </transition>
 

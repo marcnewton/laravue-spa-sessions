@@ -8,7 +8,7 @@
             <div class="logo"></div>
         </div>
 
-        <transition name="fade">
+        <transition mode="out-in">
 
             <v-input-form v-if="screen === 'login'" :action="$laravel.login" :input="input" @loading="setLoading">
 
@@ -92,8 +92,6 @@
                 if (response.data.hasOwnProperty('message')) {
                     this.$notify(response.data.message);
                 }
-
-                console.log('response',);
 
             }
 

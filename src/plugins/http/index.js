@@ -13,13 +13,13 @@ const Http = {
         this.installed = true;
         this.params = options;
 
-        this.register(Vue);
+        this.register();
 
         Vue.prototype.$http = axios;
         Vue.http = axios;
     },
 
-    register(Vue) {
+    register() {
 
         if (this.params.baseURL)
             axios.defaults.baseURL = this.params.baseURL;

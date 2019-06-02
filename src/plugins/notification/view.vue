@@ -2,7 +2,7 @@
 
     <div id="app-notifications">
 
-        <transition-group name="fade">
+        <transition-group mode="out-in">
             <div v-for="(item,index) in $notification.que" :key="index" :class="item.color" @click="$delete($notification.que,index)">
                 {{ item.message }}
             </div>

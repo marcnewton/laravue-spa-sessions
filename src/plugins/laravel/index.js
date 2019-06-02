@@ -68,8 +68,6 @@ export default {
 
                 update(input) {
 
-                    console.log('update', update);
-
                     return new Promise((resolve, reject) => {
 
                         router.app.$http.post(route('password.reset', {token: router.currentRoute.query.token}), {email: input.email}).then(response => {

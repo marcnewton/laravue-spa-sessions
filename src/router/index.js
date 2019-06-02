@@ -11,9 +11,9 @@ let router = new Router({
 
 });
 
-router.afterEach((to,from) => {
+router.afterEach((to) => {
 
-    document.title = !!!to.meta.title ? '' : to.meta.title;
+    document.title = to.meta.title == null ? '' : to.meta.title;
 
 });
 
