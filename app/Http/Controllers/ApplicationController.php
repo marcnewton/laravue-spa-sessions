@@ -26,6 +26,12 @@ class ApplicationController extends Controller
         return view('app');
     }
 
+    /**
+     * Returns JSON payload for the current authenticated user else returns 401 header if guest.
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public final function User(Request $request)
     {
         $user = $request->user();

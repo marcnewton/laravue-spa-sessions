@@ -1,7 +1,16 @@
 const config = {
 
+    mountAppTo: '#app',
     requestPrefix: '/app',
-    defaultRedirect: '/'
+    defaultRedirect: '/',
+
+    plugins: {
+
+        notification: {
+            timeout: 9000
+        }
+
+    }
 
 };
 

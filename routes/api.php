@@ -21,5 +21,3 @@ Route::name('api.')->middleware(['auth:api'])->group(function() {
     })->name('user');
 
 });
-
-

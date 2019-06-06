@@ -1,18 +1,40 @@
-import Vue from 'vue'
-import {mapState} from 'vuex'
+import './scss/app.scss'
 
 /**
+ * Import Vue.
+ * https://vuejs.org/
+ */
+
+import Vue from 'vue'
+Vue.config.productionTip = false;
+
+/**
+ * Import Vuex mappers.
+ */
+
+import { mapState } from 'vuex'
+
+/**
+ * Import Lodash.
  * https://lodash.com/docs
  */
 
-import _ from 'lodash'
-Vue.prototype._ = _;
+import 'lodash'
+Vue.prototype._ = window._;
 
 /**
- * Import extensions
+ * Import application configuration data.
  */
+import config from './config'
 
+/**
+ * Import routes.
+ */
 import router from './router'
+
+/**
+ * Import vuex store.
+ */
 import store from './store'
 
 Vue.config.productionTip = false;
@@ -21,22 +43,21 @@ Vue.config.productionTip = false;
  * Import plugins
  */
 
-import Http from './plugins/http'
-Vue.use(Http);
-
-import Laravel from './plugins/laravel'
-Vue.use(Laravel);
-
-import Notifications from './plugins/notification'
-Vue.use(Notifications, {
-    timeout: 9000
-});
+import './plugins'
 
 /**
- * Initialize the main application
+ * Import Application layout views.
  */
 import './layouts'
+
+/**
+ * Import global components
+ */
 import './components'
+
+/**
+ * Import App bootstrapper.
+ */
 import App from './App'
 
 window.App = new Vue({
@@ -73,6 +94,4 @@ window.App = new Vue({
 
     }
 
-}).$mount('#app');
-
-import './scss/app.scss'
+}).$mount(config.mountAppTo);

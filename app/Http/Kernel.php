@@ -2,25 +2,47 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\{AfterMiddleware,
+use App\Http\Middleware\{
+    AfterMiddleware,
     EncryptCookies,
     RedirectIfAuthenticated,
     TrimStrings,
     TrustProxies,
-    VerifyCsrfToken};
+    VerifyCsrfToken
+};
+
 use Barryvdh\Cors\HandleCors;
-use Illuminate\Auth\Middleware\{Authenticate, AuthenticateWithBasicAuth, Authorize};
+
+use Illuminate\Auth\Middleware\{
+    Authenticate,
+    AuthenticateWithBasicAuth,
+    Authorize,
+    EnsureEmailIsVerified
+};
+
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
-use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
-use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+
+use Illuminate\Foundation\Http\Middleware\{
+    CheckForMaintenanceMode,
+    ConvertEmptyStringsToNull,
+    ValidatePostSize
+};
+
 use Illuminate\Http\Middleware\SetCacheHeaders;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Routing\Middleware\ThrottleRequests;
-use Illuminate\Routing\Middleware\ValidateSignature;
-use Illuminate\Session\Middleware\AuthenticateSession;
-use Illuminate\Session\Middleware\StartSession;
+
+use Illuminate\Routing\Middleware\{
+    SubstituteBindings,
+    ThrottleRequests,
+    ValidateSignature
+};
+
+use Illuminate\Session\Middleware\{
+    AuthenticateSession,
+    StartSession
+};
+
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel

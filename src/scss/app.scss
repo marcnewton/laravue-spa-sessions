@@ -1,9 +1,18 @@
+// Tailwind
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+// Config
 @import 'variables';
 @import 'transitions';
-@import 'alignments';
-@import 'inputs';
-@import 'custom';
 
+
+// Layouts
 @import 'layouts/all';
 
-@import 'pages/home';
+
+// Pages

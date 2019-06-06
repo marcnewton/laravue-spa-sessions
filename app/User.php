@@ -2,12 +2,13 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -39,11 +40,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * Returns list of available routes.
+     *
      * @return array
      */
     public static final function Routes ()
     {
-        //$routes = \Illuminate\Support\Facades\Cache::rememberForever('app.routes', function () {
+        $routes = Cache::rememberForever('app.routes', function () {
 
             $routes = [];
 
@@ -69,17 +72,22 @@ class User extends Authenticatable
 
         	return $routes;
 
-        //});
+        });
 
         return $routes;
 
     }
 
+    /**
+     * Returns list of available translations for users locale.
+     *
+     * @return array
+     */
     public static final function Language()
     {
         $lang = config('app.locale');
 
-        $strings = \Illuminate\Support\Facades\Cache::rememberForever('app.languages' . $lang, function () use ($lang) {
+        $strings = Cache::rememberForever('app.languages' . $lang, function () use ($lang) {
 
             $files = glob(resource_path('lang/' . $lang . '/*.php'));
             $strings = [];

@@ -7,7 +7,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
 
     pwa: {
-        name: 'Laravue SPA',
+        name: 'Laracli SPA',
         msTileColor: '#4DBA87'
     },
 
@@ -36,7 +36,6 @@ module.exports = {
     },
 
     outputDir: 'public',
-    assetsDir: undefined,
     runtimeCompiler: true,
     filenameHashing: true,
     productionSourceMap: undefined,

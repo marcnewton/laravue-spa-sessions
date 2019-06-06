@@ -1,3 +1,5 @@
+import NotificationApp from './view';
+
 export default {
 
     install: (Vue, options = {
@@ -5,6 +7,8 @@ export default {
         timeout: 5000,
 
     }) => {
+
+        Vue.component('notification-app', NotificationApp);
 
         Vue.prototype.$notification = new Vue({
 

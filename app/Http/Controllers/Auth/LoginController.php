@@ -22,9 +22,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
+     * @deprecated
      */
     protected $redirectTo = '/';
 
@@ -38,12 +36,18 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * @inheritdoc
+     */
     public final function showLoginForm() {
 
         return view('layouts.app');
 
     }
 
+    /**
+     * @inheritdoc
+     */
     public final function authenticated(Request $request, $user)
     {
         return response()->json([
@@ -52,6 +56,9 @@ class LoginController extends Controller
         ]);
     }
 
+    /**
+     * @inheritdoc
+     */
     public final function logout(Request $request)
     {
         $this->guard()->logout();

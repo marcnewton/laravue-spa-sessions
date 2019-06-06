@@ -2,7 +2,7 @@
 
     <div class="layout-splash layout-container">
 
-        <notification-app />
+        <notification-app></notification-app>
 
         <div>
             <div class="logo"></div>
@@ -12,9 +12,7 @@
 
             <v-input-form v-if="screen === 'login'" :action="$laravel.login" :input="input" @loading="setLoading">
 
-                <label for="input-email">{{ $trans('auth.email') }}</label>
-                <input v-model="input.email" type="email" id="input-email" autocomplete="current-username"
-                       class="full-width"/>
+                <v-input-field v-model="input.email" name="email" :label="$trans('auth.email')" autocomplete="current-username"></v-input-field>
 
                 <label for="input-password">{{ $trans('auth.password') }}</label>
                 <input v-model="input.password" type="password" id="input-password" autocomplete="current-password"
