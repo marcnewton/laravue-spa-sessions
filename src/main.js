@@ -40,10 +40,16 @@ import store from './store'
 Vue.config.productionTip = false;
 
 /**
- * Import plugins
+ * Import plugins.
  */
 
 import './plugins'
+
+/**
+ * Import facilities.
+ */
+
+import './facilities'
 
 /**
  * Import Application layout views.
@@ -51,7 +57,7 @@ import './plugins'
 import './layouts'
 
 /**
- * Import global components
+ * Import global components.
  */
 import './components'
 

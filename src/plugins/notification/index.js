@@ -8,8 +8,6 @@ export default {
 
     }) => {
 
-        Vue.component('notification-app', NotificationApp);
-
         Vue.prototype.$notification = new Vue({
 
             data: () => ({
@@ -55,6 +53,8 @@ export default {
 
         Vue.notify = Vue.prototype.$notification.notify;
         Vue.prototype.$notify = Vue.prototype.$notification.notify;
+
+        Vue.component('notification-app', NotificationApp);
     }
 
 };

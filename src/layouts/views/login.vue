@@ -14,9 +14,7 @@
 
                 <v-input-field v-model="input.email" name="email" :label="$trans('auth.email')" autocomplete="current-username"></v-input-field>
 
-                <label for="input-password">{{ $trans('auth.password') }}</label>
-                <input v-model="input.password" type="password" id="input-password" autocomplete="current-password"
-                       class="full-width"/>
+                <v-input-field v-model="input.password" name="password" :label="$trans('auth.password')" autocomplete="current-password"></v-input-field>
 
                 <div class="checkbox">
                     <input v-model="input.remember" type="checkbox" id="input-remember"/>
