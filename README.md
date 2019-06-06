@@ -1,3 +1,7 @@
+> This is a development Sanbox for testing ideas.
+> 
+> If you are interested in building a Laravel Project with a Single Page Application (SPA) frontend using Vue then head on over to [Lara Cli](https://github.com/laracli)
+
 # Laravel Vue SPA + SDA
 
 Laravel Vue Cookie Session based SPA (Single Page Application) skeleton boilerplate for SDA (Same Domain Application).
