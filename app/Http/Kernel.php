@@ -6,6 +6,7 @@ use App\Http\Middleware\{
     AfterMiddleware,
     EncryptCookies,
     RedirectIfAuthenticated,
+    SetLocaleAcceptLanguage,
     TrimStrings,
     TrustProxies,
     VerifyCsrfToken
@@ -56,6 +57,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         HandleCors::class,
+        SetLocaleAcceptLanguage::class,
         AfterMiddleware::class,
         CheckForMaintenanceMode::class,
         ValidatePostSize::class,
