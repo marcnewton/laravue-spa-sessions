@@ -1,6 +1,6 @@
 <template>
 
-    <div class="layout-splash layout-container">
+    <div class="min-h-screen flex justify-center items-center">
 
         <notification-app></notification-app>
 

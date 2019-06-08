@@ -25,7 +25,7 @@ Vue.prototype._ = window._;
 /**
  * Import application configuration data.
  */
-import config from './config'
+import { config } from './config'
 
 /**
  * Import routes.

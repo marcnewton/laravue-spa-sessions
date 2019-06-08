@@ -1,4 +1,4 @@
-import config from '~/config'
+import { config } from '~/config'
 import router from '../../router'
 
 import _ from 'lodash'

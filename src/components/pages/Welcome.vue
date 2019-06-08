@@ -13,7 +13,7 @@
 
     export default {
 
-        name: 'page-home',
+        name: 'page-welcome',
 
         computed: {
 

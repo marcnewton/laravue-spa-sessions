@@ -1,17 +1,15 @@
-const config = {
+export const config = {
 
     mountAppTo: '#app',
     requestPrefix: '/app',
     defaultRedirect: '/',
 
-    plugins: {
+};
 
-        notification: {
-            timeout: 9000
-        }
+export const plugins = {
 
+    notification: {
+        timeout: 9000
     }
 
 };
-
-export default config

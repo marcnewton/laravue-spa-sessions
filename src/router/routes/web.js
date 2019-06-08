@@ -1,10 +1,8 @@
-const Home = () => import('~/components/pages/Home');
-
 const routes = [
     {
         name: 'home',
         path: '/',
-        component: Home,
+        component: () => import('~/components/pages/Welcome'),
         meta: {
             layout: 'default'
         }
