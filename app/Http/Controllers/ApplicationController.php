@@ -36,8 +36,7 @@ class ApplicationController extends Controller
     {
         $user = $request->user();
 
-        if($user === null)
-            abort(401);
+        abort_if($user === null, 401);
 
         return $user;
     }
