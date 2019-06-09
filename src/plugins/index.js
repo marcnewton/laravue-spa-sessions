@@ -1,19 +1,30 @@
-import Vue from 'vue';
-
-import Http from './http'
-Vue.use(Http);
-
-import Laravel from './laravel'
-Vue.use(Laravel);
-
+import Vue from 'vue'
 import { plugins } from '~/config'
 
-console.log('plugins', plugins);
+const requirePlugin = require.context('.', true, /(index\.js)/);
 
-const iterator = require.context('.', false, /w+/);
+requirePlugin.keys().forEach(source => {
 
-iterator.keys().forEach(dir => {
+    const context = source.match(/\/(\w+)\//);
 
-    console.log('dir',dir);
+    if(!!context) {
+
+        const name = context[context.index];
+        const plugin = requirePlugin(source);
+
+        if(plugins.hasOwnProperty(name)) {
+
+            const config = plugins[name] || {};
+            const enabled = config.enabled || true;
+
+            if(enabled) {
+
+                Vue.use(plugin.default || plugin, config);
+
+            }
+
+        }
+
+    }
 
 });
