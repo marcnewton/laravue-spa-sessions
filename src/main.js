@@ -37,13 +37,17 @@ import router from './router'
  */
 import store from './store'
 
-Vue.config.productionTip = false;
-
 /**
  * Import plugins.
  */
 
 import './plugins'
+
+/**
+ * Import global components.
+ */
+import './components'
+
 
 /**
  * Import facilities.
@@ -57,11 +61,6 @@ import './facilities'
 import './layouts'
 
 /**
- * Import global components.
- */
-import './components'
-
-/**
  * Import App bootstrapper.
  */
 import App from './App'
@@ -72,21 +71,12 @@ window.App = new Vue({
     store,
     router,
 
-    data() {
+    data: () => ({
 
-        return {
+        loading: 0,
+        csrfToken: ''
 
-            loading: 0
-
-        }
-
-    },
-
-    beforeMount() {
-
-        this.$laravel.initialize();
-
-    },
+    }),
 
     computed: {
 

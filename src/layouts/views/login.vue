@@ -1,6 +1,6 @@
 <template>
 
-    <div class="min-h-screen flex justify-center items-center">
+    <div class="min-h-screen flex justify-center items-center layout-auth">
 
         <notification-app></notification-app>
 

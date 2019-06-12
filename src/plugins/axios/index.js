@@ -1,10 +1,12 @@
 import axios from 'axios'
 import router from '../../router'
 
-const Http = {
+export default {
 
     install(Vue, options = {
+
         baseURL: null
+
     }) {
 
         if (this.installed)
@@ -68,7 +70,7 @@ const Http = {
                     const token = response.headers['x-csrf-token'];
 
                     axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
-                    router.app.$laravel.csrfToken = token;
+                    window.csrfToken = router.app.csrfToken = token;
                 }
 
                 router.app.loading--;
@@ -105,7 +107,7 @@ const Http = {
                     const token = error.response.headers['x-csrf-token'];
 
                     axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
-                    router.app.$laravel.csrfToken = token;
+                    window.csrfToken = router.app.csrfToken = token;
                 }
 
                 if (error.response.hasOwnProperty('status')) {
@@ -113,11 +115,11 @@ const Http = {
                     switch (error.response.status) {
 
                         case 401: // Unauthorized
-                            router.app.$laravel.reset();
+                            router.app.$root.$emit('unauthorized');
                             break;
 
                         case 419: // Authentication Timeout
-                            router.app.$laravel.reset();
+                            router.app.$root.$emit('auth-timeout');
                             break
 
                     }
@@ -137,5 +139,3 @@ const Http = {
     }
 
 };
-
-export default Http;

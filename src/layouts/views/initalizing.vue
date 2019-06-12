@@ -1,6 +1,6 @@
 <template>
 
-    <div class="layout-splash layout-container">
+    <div class="">
 
         <div>
 

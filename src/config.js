@@ -8,7 +8,16 @@ export const config = {
 
 export const plugins = {
 
+    axios: {
+        enabled: true
+    },
+
+    laravel: {
+        enabled: true
+    },
+
     notification: {
+        enabled: true,
         timeout: 9000
     }
 

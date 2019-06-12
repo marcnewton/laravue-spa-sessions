@@ -5,14 +5,12 @@ const target = 'http://192.168.10.10';
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
-
     pwa: {
         name: 'Laracli SPA',
         msTileColor: '#4DBA87'
     },
 
     baseUrl: undefined,
-    assetsDir: undefined,
 
     devServer: {
         disableHostCheck: true,
@@ -36,11 +34,8 @@ module.exports = {
     },
 
     outputDir: 'public',
-    runtimeCompiler: true,
     filenameHashing: true,
-    productionSourceMap: undefined,
-    parallel: undefined,
-    css: undefined,
+    productionSourceMap: false,
 
     chainWebpack: config => {
 
@@ -67,5 +62,4 @@ module.exports = {
             }
         }
     }
-
 }

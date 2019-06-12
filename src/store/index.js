@@ -5,6 +5,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 
+    namespaced: true,
+
     state: {
 
         user: null,
@@ -23,11 +25,11 @@ const store = new Vuex.Store({
 
         setUser(state,payload) {
 
-            if(typeof payload !== 'object' || payload === null)
+            if(typeof payload !== 'object')
                 return;
 
             state.user = payload;
-            state.isAuthenticated = payload.hasOwnProperty('id');
+            state.isAuthenticated = Object.keys(state.user).length > 0;
 
         },
 
@@ -61,13 +63,9 @@ const store = new Vuex.Store({
 
         user: state => {
 
-            return state.user || { id: 0, name: null }
+            return state.user || {};
 
         }
-
-    },
-
-    modules: {
 
     }
 
