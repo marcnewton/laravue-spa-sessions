@@ -3,6 +3,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex);
 
+import { config } from '~/config';
+
 const store = new Vuex.Store({
 
     namespaced: true,
@@ -11,9 +13,9 @@ const store = new Vuex.Store({
 
         user: null,
 
-        isInitializing: true,
+        isInitializing: config.initialization,
 
-        isAuthenticating: true,
+        isAuthenticating: config.authentication,
 
         isAuthenticated: false,
 

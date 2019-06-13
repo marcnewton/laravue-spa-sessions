@@ -44,9 +44,9 @@ export default {
             methods: {
 
                 ...mapActions({
-                    route: 'laravel/route',
-                    trans: 'laravel/trans',
-                    __: 'laravel/trans'
+                    route: 'Laravel/route',
+                    trans: 'Laravel/trans',
+                    __: 'Laravel/trans'
                 })
 
             }
