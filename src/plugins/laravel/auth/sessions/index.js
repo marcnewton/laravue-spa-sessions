@@ -3,6 +3,16 @@ import store from '~/store'
 
 import { mapActions } from 'vuex'
 
+export const hook = (vm) => {
+
+    vm.$on('initialized', (vm) => {
+
+        vm.authCheck();
+
+    });
+
+};
+
 export default {
 
     install: (Vue, options = {
@@ -17,8 +27,8 @@ export default {
 
                 ...mapActions({
                     authLogin: 'Laravel/Sessions/login',
-                    authLogout: 'Laravel/Session/logout',
-                    authCheck: 'Laravel/Session/'
+                    authLogout: 'Laravel/Sessions/logout',
+                    authCheck: 'Laravel/Sessions/check'
                 })
 
             }

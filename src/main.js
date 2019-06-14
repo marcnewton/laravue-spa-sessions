@@ -12,7 +12,7 @@ Vue.config.productionTip = false;
  * Import Vuex mappers.
  */
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 /**
  * Import Lodash.
@@ -78,13 +78,49 @@ window.App = new Vue({
 
     }),
 
+    mounted() {
+
+        this.$emit('mounted');
+
+    },
+
     computed: {
 
-        ...mapState(['user','isAuthenticating','isAuthenticated','isInitializing']),
+        ...mapState(['user','isAuthenticating','isAuthenticated', 'isOffline']),
+
+        ...mapGetters(['isInitializing']),
 
         isLoading () {
 
             return this.loading > 0;
+
+        }
+
+    },
+
+    watch: {
+
+        isInitializing(value) {
+
+            this.$emit('isInitializing', value);
+
+            if(!value)
+                this.$emit('initialized', this);
+
+        },
+
+        isAuthenticating(value) {
+
+            this.$emit('isAuthenticating', value);
+
+        },
+
+        isAuthenticated(value) {
+
+            this.$emit('isAuthenticated', value);
+
+            if(value)
+                this.$emit('authenticated', this);
 
         }
 

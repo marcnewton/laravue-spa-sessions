@@ -1,9 +1,10 @@
 import Vue from 'vue'
 
 import Vuex from 'vuex'
+
 Vue.use(Vuex);
 
-import { config } from '~/config';
+import {config} from '~/config';
 
 const store = new Vuex.Store({
 
@@ -13,11 +14,13 @@ const store = new Vuex.Store({
 
         user: null,
 
-        isInitializing: config.initialization,
+        initializers: 0,
 
         isAuthenticating: config.authentication,
 
         isAuthenticated: false,
+
+        isOffline: false,
 
         inMaintenance: false
 
@@ -25,9 +28,9 @@ const store = new Vuex.Store({
 
     mutations: {
 
-        setUser(state,payload) {
+        setUser(state, payload) {
 
-            if(typeof payload !== 'object')
+            if (typeof payload !== 'object')
                 return;
 
             state.user = payload;
@@ -35,25 +38,38 @@ const store = new Vuex.Store({
 
         },
 
-        setAuthenticating(state,payload) {
+        setInitializing(state, payload) {
+
+            if (payload) {
+
+                state.initializers++;
+                return;
+
+            }
+
+            state.initializers--;
+
+        },
+
+        setAuthenticating(state, payload) {
 
             state.isAuthenticating = payload;
 
         },
 
-        setAuthenticated(state,payload) {
+        setAuthenticated(state, payload) {
 
             state.isAuthenticated = payload;
 
         },
 
-        setInitializing(state,payload) {
+        setOffline(state, payload) {
 
-            state.isInitializing = payload;
+            state.isOffline = payload;
 
         },
 
-        setMaintenanceMode(state,payload) {
+        setMaintenanceMode(state, payload) {
 
             state.inMaintenance = payload;
 
@@ -66,6 +82,12 @@ const store = new Vuex.Store({
         user: state => {
 
             return state.user || {};
+
+        },
+
+        isInitializing: state => {
+
+            return state.initializers > 0;
 
         }
 

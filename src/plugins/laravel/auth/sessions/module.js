@@ -72,11 +72,11 @@ export default {
 
         },
 
-        check({ commit }) {
+        check({ commit }, vm) {
 
             commit('setAuthenticating', true, { root: true });
 
-            router.app.$http.get(this.route('app.user')).then(response => {
+            router.app.$http.get(router.app.route('app.user')).then(response => {
 
                 commit('setUser', response.data, {root: true});
 
