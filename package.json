@@ -24,7 +24,7 @@
         "vue-style-loader": "^4.1.2",
         "vue-template-compiler": "^2.6.10",
         "vuex": "^3.1.1",
-        "webpack": "^4.32.2"
+        "webpack": "^4.34.0"
     },
     "eslintConfig": {
         "root": true,
@@ -50,5 +50,9 @@
         "> 1%",
         "last 2 versions",
         "not ie <= 8"
-    ]
+    ],
+    "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^12.2.0",
+        "@ckeditor/ckeditor5-vue": "^1.0.0-beta.2"
+    }
 }
