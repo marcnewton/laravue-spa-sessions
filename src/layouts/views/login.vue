@@ -10,37 +10,37 @@
 
         <transition mode="out-in">
 
-            <v-input-form v-if="screen === 'login'" :action="$laravel.login" :input="input" @loading="setLoading">
+            <v-input-form v-if="screen === 'login'" :action="authLogin" :input="input" @loading="setLoading">
 
-                <v-input-field v-model="input.email" name="email" :label="$trans('auth.email')" autocomplete="current-username"></v-input-field>
+                <v-input-field v-model="input.email" name="email" :label="trans('auth.email')" autocomplete="current-username"></v-input-field>
 
-                <v-input-field v-model="input.password" name="password" :label="$trans('auth.password')" autocomplete="current-password"></v-input-field>
+                <v-input-field v-model="input.password" name="password" :label="trans('auth.password')" autocomplete="current-password"></v-input-field>
 
                 <div class="checkbox">
                     <input v-model="input.remember" type="checkbox" id="input-remember"/>
-                    <label for="input-remember">{{ $trans('auth.remember') }}</label>
+                    <label for="input-remember">{{ trans('auth.remember') }}</label>
                 </div>
 
                 <div class="flex spaced full-width">
                     <button type="button" :disabled="loading" @click.prevent="screen = 'request'">{{
-                        $trans('auth.forgotten') }}
+                        trans('auth.forgotten') }}
                     </button>
-                    <button type="submit" :disabled="loading">{{ $trans('auth.login') }}</button>
+                    <button type="submit" :disabled="loading">{{ trans('auth.login') }}</button>
                 </div>
 
             </v-input-form>
 
-            <v-input-form v-else :action="$laravel.recover" :input="input" @success="success" @loading="setLoading">
+            <v-input-form v-else :action="authRecover" :input="input" @success="success" @loading="setLoading">
 
-                <label for="input-recovery-email">{{ $trans('auth.email') }}</label>
+                <label for="input-recovery-email">{{ trans('auth.email') }}</label>
                 <input v-model="input.email" type="email" id="input-recovery-email" autocomplete="current-username"
                        class="full-width"/>
 
                 <div class="flex spaced full-width">
                     <button type="button" :disabled="loading" @click.prevent="screen = 'login'">{{
-                        $trans('common.cancel') }}
+                        trans('common.cancel') }}
                     </button>
-                    <button type="submit" :disabled="loading">{{ $trans('passwords.request') }}</button>
+                    <button type="submit" :disabled="loading">{{ trans('passwords.request') }}</button>
                 </div>
 
             </v-input-form>

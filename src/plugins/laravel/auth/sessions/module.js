@@ -33,10 +33,14 @@ export default {
         logout({ dispatch }) {
 
             router.app.$http.post(route('logout')).catch(error => {
+
                 // TODO Handle logout error
                 console.error(error);
+
             }).finally(() => {
+
                 dispatch('check');
+
             });
 
         },
@@ -102,7 +106,7 @@ export default {
         reset({ commit }) {
 
             commit('setUser', null, {root: true});
-            commit('setAuthenticated', false, {root: true});
+            commit('setAuthenticated', false, {root: true}); // TODO this could be replaced with a state check on user == null ?
 
         }
 

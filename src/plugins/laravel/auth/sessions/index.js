@@ -5,9 +5,33 @@ import { mapActions } from 'vuex'
 
 export const hook = (vm) => {
 
-    vm.$on('initialized', (vm) => {
+    vm.$on('app:initialized', () => {
 
         vm.authCheck();
+
+    });
+
+    vm.$on('hook:beforeUpdate', () => {
+
+        alert('plugin on hook:beforeUpdate');
+
+    });
+
+    vm.$on('hook:updated', () => {
+
+        alert('plugin on hook:updated');
+
+    });
+
+    vm.$on('hook:beforeDestroy', () => {
+
+        alert('plugin on hook:beforeDestroy');
+
+    });
+
+    vm.$on('hook:destroyed', () => {
+
+        alert('plugin on hook:destroyed');
 
     });
 
