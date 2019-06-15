@@ -39,6 +39,7 @@ class VueAfterInit {
 }
 
 const onAfterInit = (vm) => { return new VueAfterInit(vm) };
+const requirePlugin = require.context('.', true, /(index\.js)/);
 
 Vue.mixin({
 
@@ -49,8 +50,6 @@ Vue.mixin({
    }
 
 });
-
-const requirePlugin = require.context('.', true, /(index\.js)/);
 
 requirePlugin.keys().forEach(source => {
 
@@ -74,7 +73,7 @@ requirePlugin.keys().forEach(source => {
 
                 }
 
-                Vue.use(plugin.default, config);
+                Vue.use(plugin.default || plugin, config);
 
             }
 
