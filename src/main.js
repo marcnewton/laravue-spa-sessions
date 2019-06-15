@@ -6,13 +6,8 @@ import './scss/app.scss'
  */
 
 import Vue from 'vue'
+
 Vue.config.productionTip = false;
-
-/**
- * Import Vuex mappers.
- */
-
-import { mapState, mapGetters } from 'vuex'
 
 /**
  * Import Lodash.
@@ -20,12 +15,13 @@ import { mapState, mapGetters } from 'vuex'
  */
 
 import 'lodash'
+
 Vue.prototype._ = window._;
 
 /**
  * Import application configuration data.
  */
-import { config } from './config'
+import {config} from './config'
 
 /**
  * Import routes.
@@ -48,7 +44,6 @@ import './plugins'
  */
 import './components'
 
-
 /**
  * Import facilities.
  */
@@ -65,6 +60,17 @@ import './layouts'
  */
 import App from './App'
 
+/**
+ * Import Vuex mappers.
+ */
+
+import {mapState, mapGetters} from 'vuex'
+
+/**
+ * Initialize Vue App Instance.
+ *
+ * @type {Vue | any}
+ */
 window.App = new Vue({
 
     render: h => h(App),
@@ -78,19 +84,13 @@ window.App = new Vue({
 
     }),
 
-    mounted() {
-
-        this.$emit('mounted');
-
-    },
-
     computed: {
 
-        ...mapState(['user','isAuthenticating','isAuthenticated', 'isOffline']),
+        ...mapState(['user', 'isAuthenticating', 'isAuthenticated', 'isOffline']),
 
         ...mapGetters(['isInitializing']),
 
-        isLoading () {
+        isLoading() {
 
             return this.loading > 0;
 
@@ -102,25 +102,26 @@ window.App = new Vue({
 
         isInitializing(value) {
 
-            this.$emit('isInitializing', value);
+            this.$emit('app:initializing', value);
 
-            if(!value)
-                this.$emit('initialized', this);
+            if (!value) {
+
+                this.$emit('app:initialized');
+
+            }
+
 
         },
 
         isAuthenticating(value) {
 
-            this.$emit('isAuthenticating', value);
+            this.$emit('app:authenticating', value);
 
         },
 
         isAuthenticated(value) {
 
-            this.$emit('isAuthenticated', value);
-
-            if(value)
-                this.$emit('authenticated', this);
+            this.$emit('app:authenticated', value);
 
         }
 
