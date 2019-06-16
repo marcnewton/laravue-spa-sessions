@@ -40,7 +40,7 @@ import store from './store'
 import './plugins'
 
 /**
- * Import global components.
+ * Import components.
  */
 import './components'
 
@@ -50,10 +50,6 @@ import './components'
 
 import './facilities'
 
-/**
- * Import Application layout views.
- */
-import './layouts'
 
 /**
  * Import App bootstrapper.
@@ -65,6 +61,18 @@ import App from './App'
  */
 
 import {mapState, mapGetters} from 'vuex'
+
+Vue.mixin({
+
+    computed: {
+
+        ...mapState(['user', 'isAuthenticating', 'isAuthenticated', 'isOffline']),
+
+        ...mapGetters(['isInitializing']),
+
+    }
+
+});
 
 /**
  * Initialize Vue App Instance.
@@ -86,10 +94,6 @@ window.App = new Vue({
 
     computed: {
 
-        ...mapState(['user', 'isAuthenticating', 'isAuthenticated', 'isOffline']),
-
-        ...mapGetters(['isInitializing']),
-
         isLoading() {
 
             return this.loading > 0;
@@ -109,7 +113,6 @@ window.App = new Vue({
                 this.$emit('app:initialized');
 
             }
-
 
         },
 

@@ -22,6 +22,10 @@ export const plugins = {
     notification: {
         enabled: true,
         timeout: 9000
+    },
+
+    ckeditor: {
+        enabled: false
     }
 
 };
